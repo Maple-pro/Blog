@@ -111,6 +111,176 @@
       </categories>
   </entry>
   <entry>
+    <title>云计算：1. 大数据与云计算</title>
+    <url>/blog/2021/03/15/CloudComputing-1/</url>
+    <content><![CDATA[<h1 id="云计算：1-大数据与云计算"><a href="#云计算：1-大数据与云计算" class="headerlink" title="云计算：1. 大数据与云计算"></a>云计算：1. 大数据与云计算</h1><h2 id="1-IaaS-vs-PaaS-vs-SaaS"><a href="#1-IaaS-vs-PaaS-vs-SaaS" class="headerlink" title="1. IaaS vs PaaS vs SaaS"></a>1. IaaS vs PaaS vs SaaS</h2><p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/v2-1a82f8a4997b0ba53d801639d4c6706e_r.jpg" alt="preview"></p>
+<ul>
+<li>IaaS: Infrastructure as a Service<ul>
+<li>a virtual machine</li>
+</ul>
+</li>
+<li>PaaS: Platform as a Service</li>
+<li>SaaS: Software as a Service</li>
+</ul>
+<h2 id="2-CAP-Principle"><a href="#2-CAP-Principle" class="headerlink" title="2. CAP Principle"></a>2. CAP Principle</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303161406.png"  />
+
+<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303161730.png"  />
+
+<ul>
+<li>Consistency（一致性）<ul>
+<li>一个写操作返回成功，那么之后的读请求都必须读到这个新数据；如果返回失败，那么所有读操作都不能读到这个数据。所有节点访问同一份最新的数据。</li>
+</ul>
+</li>
+<li>Availability（可用性）<ul>
+<li>对数据更新具备高可用性，请求能够及时处理，不会一直等待，即使出现节点失效。</li>
+</ul>
+</li>
+<li>Partition Tolerance（分区容错性）<ul>
+<li>能容忍网络分区，在网络断开的情况下，被分隔的节点仍能正常对外提供服务。</li>
+</ul>
+</li>
+</ul>
+<p>不可能都达成，最多只能满足其中两个。</p>
+<p>理解CAP理论最简单的方式是想像两个副本处于分区两侧，即两个副本之间的网络断开，不能通信。</p>
+<blockquote>
+<ul>
+<li>如果允许其中一个副本更新，则会导致数据不一致，即丧失了C性质。</li>
+<li>如果为了保证一致性，将分区某一侧的副本设置为不可用，那么又丧失了A性质。</li>
+<li>除非两个副本可以互相通信，才能既保证C又保证A，这又会导致丧失P性质。</li>
+</ul>
+</blockquote>
+<p>一般来说，使用网络通信的分布式系统，无法舍弃P性质，那么就只能在一致性C和可用性A上做一个艰难的选择。</p>
+<h2 id="3-BASE-Theorem"><a href="#3-BASE-Theorem" class="headerlink" title="3. BASE Theorem"></a>3. BASE Theorem</h2><ul>
+<li>BA: Basically Available，基本可用</li>
+<li>S: Soft state，软状态</li>
+<li>E: Eventually consistent，最终一致</li>
+</ul>
+<p>核心思想：如果无法做到强一致性，或者做到强一致性要付出很大的代价，那么应用可以根据自身业务特点，采用适当的方式来使系统达到最终一致性，只要对最终用户没有影响，或者影响是可接受的即可。</p>
+<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303162448.png"  />
+
+<h2 id="4-奇数个节点（Zookeeper）"><a href="#4-奇数个节点（Zookeeper）" class="headerlink" title="4. 奇数个节点（Zookeeper）"></a>4. 奇数个节点（Zookeeper）</h2><ul>
+<li>防止由脑裂造成的集群不可用</li>
+<li>在容错能力相同的情况下，奇数台更节省资源</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>云计算</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>云计算：2. Google云计算</title>
+    <url>/blog/2021/03/15/CloudComputing-2/</url>
+    <content><![CDATA[<h1 id="云计算：2-Google云计算"><a href="#云计算：2-Google云计算" class="headerlink" title="云计算：2. Google云计算"></a>云计算：2. Google云计算</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/hadoop-an-industry-perspective-8-728.jpg" alt="Apache Hadoop Ecosystem"  />
+
+<p>Hadoop实际上就是谷歌三宝的开源实现，Hadoop MapReduce对应Google MapReduce，HBase对应BigTable，HDFS对应GFS，Zookeepr对应Chubby。</p>
+<ul>
+<li>HDFS（或GFS）为上层提供高效的非结构化存储服务;</li>
+<li>HBase（或BigTable）是提供结构化数据服务的分布式数据库;</li>
+<li>Hadoop MapReduce（或Google MapReduce）是一种并行计算的编程模型，用于作业调度。</li>
+</ul>
+<h2 id="2-Google文件系统GFS"><a href="#2-Google文件系统GFS" class="headerlink" title="2. Google文件系统GFS"></a>2. Google文件系统GFS</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310144620112.png" alt="image-20210310144620112"  />
+
+<h3 id="2-1-系统架构"><a href="#2-1-系统架构" class="headerlink" title="2.1 系统架构"></a>2.1 系统架构</h3><p>GFS的系统架构如图2-1所示。GFS将整个系统的节点分为三类角色：Client（客户端）、Master（主服务器）和Chunk  Server（数据块服务器）。</p>
+<ul>
+<li>Client是GFS提供给应用程序的访问接口，它是一组专用接口，不遵守POSIX规范，以库文件的形式提供。应用程序直接调用这些库函数，并与该库链接在一起。</li>
+<li>Master是GFS的管理节点，在逻辑上只有一个，它保存系统的元数据，负责整个文件系统的管理，是GFS文件系统中的“大脑”。</li>
+<li>Chunk Server负责具体的存储工作。数据以文件的形式存储在Chunk Server上，Chunk Server的个数可以有多个，它的数目直接决定了GFS的规模。GFS将文件按照固定大小进行分块，默认是64MB，每一块称为一个Chunk（数据块），每个Chunk都有一个对应的索引号（Index）。</li>
+</ul>
+<h4 id="1-存取数据"><a href="#1-存取数据" class="headerlink" title="1. 存取数据"></a>1. 存取数据</h4><p>客户端在访问GFS时，首先访问Master节点，获取与之进行交互的Chunk Server信息，然后直接访问这些Chunk  Server，完成数据存取工作。</p>
+<p>GFS的这种设计方法实现了控制流和数据流的分离。Client与Master之间只有控制流，而无数据流，极大地降低了Master的负载。</p>
+<p>Client与Chunk  Server之间直接传输数据流，同时由于文件被分成多个Chunk进行分布式存储，Client可以同时访问多个Chunk  Server，从而使得整个系统的I/O高度并行，系统整体性能得到提高。</p>
+<h4 id="2-写入数据"><a href="#2-写入数据" class="headerlink" title="2. 写入数据"></a>2. 写入数据</h4><p>使用租约机制来保障在跨多个副本的数据写入中保持顺序一致性，减轻master的负担，有主副本所在的Chunk Server来负责控制流水线的安排。</p>
+<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/v2-73bf6805cb88448095875d3dd190d0af_720w.jpg" alt="img"  />
+
+<ol>
+<li>客户端向 Master 询问要写的 Chunk 的<strong>主副本和其他副本的位置</strong>。如果还没有主副本，那么 Master 就通过租约授权一个。</li>
+<li>Master 会给客户端这些位置信息，客户端会将其缓存起来。并且除非主副本不可达或者其租约到期，客户端不会再向 Master 发送请求。</li>
+<li>客户端将要写的数据推送给各个副本所在的服务器。这里需要注意的一个设计是，GFS 将<strong>数据流和控制流进行了解耦</strong>，即客户端可以以任何顺序进行数据推送而不用像控制流一样先到主备份再到从备份。这样可以使我们独立优化数据流的推送，甚至可以并行推送；对于大数据块写入是很有好处的，下面章节会详细讨论这个事情。每个 ChunkServer 收到数据后不立即落盘，而是使用 LRU 策略放在缓存里，这也是一个将网络IO和硬盘IO进行解耦的一个操作，一是为了提高效率，一是等待<strong>主备份安排写入顺序</strong>。</li>
+<li>当客户端被告知所有副本的数据推送完成后，会向主备份服务器发送写（落盘）请求。主备份所在服务器会把多个并发客户端（如果有的话）的写请求安排一个写入顺序（给每个写请求指定一个<strong>序列号</strong>），并将其写入前面所说的操作日志。</li>
+<li>主备份所在服务器将客户端的写请求以及序列号转给其他副本所在服务器。有了这个唯一对应的序列号，所有副本的落盘顺序就能保持一致。</li>
+<li>所有从备份服务器落完盘后给主备份所在服务器复命。</li>
+<li>主备份所在服务器回复客户端，如果任何副本写入出现了问题，都会报告给客户端。如果遇到问题，可能有两种：a. 所有副本数据均未落盘。b.部分副本数据落盘成功。对于后者就会出现不一致的状态。<strong>客户端</strong>的<strong>库代码</strong>（意味着不用应用代码进行处理）检测到错误后会进行重试，因此在真正成功写入之前，步骤 3~7 可能会重复多次。</li>
+</ol>
+<h4 id="3-分布式事务"><a href="#3-分布式事务" class="headerlink" title="3. 分布式事务"></a>3. 分布式事务</h4><p><strong>两阶段提交</strong>：两阶段提交，顾名思义就是要分两步提交。</p>
+<ul>
+<li>prepare: 存在一个负责协调各个本地资源管理器的事务管理器，本地资源管理器一般是由数据库实现，事务管理器在第一阶段的时候询问各个资源管理器是否都就绪？</li>
+<li>commit/rollback: 如果收到每个资源的回复都是 yes，则在第二阶段提交事务，如果其中任意一个资源的回复是 no, 则回滚事务。</li>
+</ul>
+<h4 id="4-特点"><a href="#4-特点" class="headerlink" title="4. 特点"></a>4. 特点</h4><ol>
+<li>采用中心服务器模式</li>
+<li>不缓存数据</li>
+<li>在用户态下实现</li>
+</ol>
+<h2 id="3-分布式数据处理MapReduce"><a href="#3-分布式数据处理MapReduce" class="headerlink" title="3. 分布式数据处理MapReduce"></a>3. 分布式数据处理MapReduce</h2><h3 id="3-1-编程模型"><a href="#3-1-编程模型" class="headerlink" title="3.1 编程模型"></a>3.1 编程模型</h3><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310153753017.png" alt="image-20210310153753017"  />
+
+<p><strong>Map函数</strong>：对一部分原始数据进行指定的操作。每个Map操作都针对不同的原始数据，因此Map与Map之间是互相独立的，这使得它们可以充分并行化。</p>
+<p><strong>Reduce操作</strong>：对每个Map所产生的一部分中间结果进行合并操作，每个Reduce所处理的Map中间结果是互不交叉的，所有Reduce产生的最终结果经过简单连接就形成了完整的结果集。</p>
+<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310154255885.png" alt="image-20210310154255885"  />
+
+<h3 id="3-2-容错机制"><a href="#3-2-容错机制" class="headerlink" title="3.2 容错机制"></a>3.2 容错机制</h3><ul>
+<li>Master失效<ul>
+<li>Master会周期性地设置检查点（checkpoint），并导出Master的数据。一旦某个任务失效，系统就从最近的一个检查点恢复并重新执行。由于只有一个Master在运行，如果Master失效了，则只能终止整个MapReduce程序的运行并重新开始。</li>
+</ul>
+</li>
+<li>Worker失效<ul>
+<li>Master会<strong>周期性地给Worker发送ping</strong>命令，如果没有Worker的应答，则Master认为Worker失效，终止对这个Worker的任务调度，把失效Worker的任务调度到其他Worker上重新执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-其它的MapReduce"><a href="#4-其它的MapReduce" class="headerlink" title="4. 其它的MapReduce"></a>4. 其它的MapReduce</h2><h3 id="4-1-Java-Stream接口"><a href="#4-1-Java-Stream接口" class="headerlink" title="4.1 Java Stream接口"></a>4.1 Java Stream接口</h3><p><a href="https://www.runoob.com/java/java8-streams.html">https://www.runoob.com/java/java8-streams.html</a></p>
+<p><a href="https://blog.csdn.net/yy339452689/article/details/110956119">Stream详解</a></p>
+<p><a href="https://blog.csdn.net/yrsg666/article/details/92837145">spark中RDD算子分类整理</a></p>
+<p><a href="https://blog.csdn.net/qq_35885488/article/details/103185724">Spark无状态和有状态转化操作介绍</a></p>
+<p><a href="https://blog.csdn.net/zhangvalue/article/details/84780428">Spark基础 DAG</a></p>
+<p><a href="https://blog.csdn.net/beautiful_huang/article/details/104267573">kafka 转换算子</a></p>
+<p>Lambda表达式：函数式编程</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>云计算</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>云计算：3. 容器</title>
+    <url>/blog/2021/03/17/CloudComputing-3/</url>
+    <content><![CDATA[<h1 id="云计算：3-容器"><a href="#云计算：3-容器" class="headerlink" title="云计算：3. 容器"></a>云计算：3. 容器</h1><h2 id="1-Docker镜像"><a href="#1-Docker镜像" class="headerlink" title="1. Docker镜像"></a>1. Docker镜像</h2><ul>
+<li>容器镜像打包了应用及其依赖（包含完整操作系统的所有文件和目录）</li>
+<li>容器镜像包含了应用运行所需要的所有依赖。</li>
+<li>实现了本地环境与云端环境的高一致性</li>
+<li>通过6个Namespace和Cgroup为每个应用创建隔离的运行环境</li>
+</ul>
+<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317142915755.png" alt="image-20210317142915755"></p>
+<h2 id="2-Container-VS-VM-Virtual-Machine"><a href="#2-Container-VS-VM-Virtual-Machine" class="headerlink" title="2. Container VS VM (Virtual Machine)"></a>2. Container VS VM (Virtual Machine)</h2><p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317143240171.png" alt="image-20210317143240171"></p>
+<ul>
+<li>Virtual Machine<ul>
+<li>Hypervisor：例如Win10等操作系统</li>
+<li>Guest Operating System：消耗资源很大</li>
+<li>优点：隔离性很好</li>
+<li>缺点：CPU、硬盘、内存占用高，启动速度慢</li>
+</ul>
+</li>
+<li>Container<ul>
+<li>Host Operating System: Linux操作系统</li>
+<li>Docker: Docker Engine</li>
+<li>App: Docker image</li>
+<li>优点：占用资源小，响应速度快</li>
+<li>缺点：隔离性没有VM好（一定是缺点吗？）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317144952233.png" alt="image-20210317144952233"></p>
+<h2 id="3-容器编排引擎"><a href="#3-容器编排引擎" class="headerlink" title="3. 容器编排引擎"></a>3. 容器编排引擎</h2><p>Kubernetes, MESOS, Docker Swarm</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Edu Codeforces R 90 (Div.2)</title>
     <url>/blog/2021/03/13/Edu%20CF%20R%2090%20(Div.2)/</url>
     <content><![CDATA[<h2 id="A-Donut-Shops"><a href="#A-Donut-Shops" class="headerlink" title="A. Donut Shops*"></a>A. Donut Shops*</h2><p>两个临界条件：</p>
@@ -338,173 +508,91 @@
       </tags>
   </entry>
   <entry>
-    <title>Java学习：3. Methods</title>
-    <url>/blog/2021/03/13/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A3.%20Methods/</url>
-    <content><![CDATA[<h1 id="3-1-Method-Call-Stack-and-Activation-Records"><a href="#3-1-Method-Call-Stack-and-Activation-Records" class="headerlink" title="3.1 Method-Call Stack and Activation Records"></a>3.1 Method-Call Stack and Activation Records</h1><h2 id="3-1-1-Stack-data-structure"><a href="#3-1-1-Stack-data-structure" class="headerlink" title="3.1.1 Stack data structure"></a>3.1.1 Stack data structure</h2><ul>
-<li><p><strong>Pushing</strong>: Placing a dish on the pile at the top</p>
-</li>
-<li><p><strong>Popping</strong>: Removing a dish from the pile from the top</p>
-</li>
-<li><p><strong>LIFO</strong> data structures: The last item pushed(inserted) on the stack is the first item popped(removed) from the stack. (<strong>last-in, first-out</strong>)</p>
-<h2 id="3-1-2-Activation-Records"><a href="#3-1-2-Activation-Records" class="headerlink" title="3.1.2 Activation Records"></a>3.1.2 Activation Records</h2></li>
-<li><p>When a program calls a method, the called method must know how to return to its caller</p>
-<ul>
-<li>The <strong>return address</strong> of the calling method is pushed onto the <strong>method-call stack</strong></li>
-</ul>
-</li>
-<li><p>If a series of method calls occurs, the successive return addresses are pushed onto the stack in last-on, first-out order</p>
-</li>
-<li><p>The <strong>method-call stack</strong> also contains <strong>the memory for the local variables</strong> used in each invocation of a method during a program’s execution</p>
-<ul>
-<li>Stored as a portion of the program-execution stack known as the <strong>activation record</strong> or <strong>stack frame</strong> of the method call</li>
-</ul>
-</li>
-<li><p>When a <strong>method call</strong> is made, the <strong>stack frame</strong> for that method call is <strong>pushed</strong> onto the <strong>method-call stack</strong></p>
-</li>
-<li><p>When the <strong>method returns</strong> to its caller, the method’s activation record is <strong>popped off</strong> the stack and those local variables are no longer known to the program</p>
-</li>
-<li><p>If more method calls occurs than can have their stack frames stored on the method-call stack, an error known as a <strong>stack overflow</strong> occurs</p>
-</li>
-<li><p><strong>overflow</strong>与<strong>内存</strong>有关</p>
-</li>
-<li><p>栈有大小限制</p>
-</li>
-<li><p>对于stack空间，是根据方法的调用与返回来管理的，<strong>不需要GC</strong></p>
-</li>
-<li><p>stack保存了方法的调用关系</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		f();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">		f();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//java.lang.StackoverflowError</span></span><br></pre></td></tr></table></figure></li>
-<li><p>main() -&gt; a() -&gt; b() -&gt; c() 在一个<strong>线程</strong>中，</p>
-</li>
-<li><p>一个java程序在运行时，有多少个<strong>线程</strong>就需要多少个<strong>栈</strong>，每个线程都有自己的栈空间</p>
-</li>
-<li><p>一个栈中的方法可以跨对象，即一个线程中的方法可以跨对象，<strong>线程只与方法有关</strong>。因为方法不知道什么叫对象，非静态方法在实现时将<strong>this指针</strong> 首先压入栈中。</p>
-<h1 id="3-2-Constructors"><a href="#3-2-Constructors" class="headerlink" title="3.2 Constructors"></a>3.2 Constructors</h1><h2 id="3-2-1-普通构造函数"><a href="#3-2-1-普通构造函数" class="headerlink" title="3.2.1 普通构造函数"></a>3.2.1 普通构造函数</h2></li>
-<li><p><strong>Roles</strong> of the constructors：<strong>Initializing objects</strong>，instand of requesting memory.</p>
-</li>
-<li><p>Java requies a <strong>constructor</strong> that <strong>initializes an object</strong> of a class <strong>when the object is created</strong>.</p>
-</li>
-<li><p>Keyword <strong>new</strong> <strong>requests memory</strong> from the system to store an object, then calls the corresponding class’s <strong>constructor</strong> to <strong>initialize</strong> the object.</p>
-</li>
-<li><p>A constructor must have <strong>the same name</strong> as the class.</p>
-</li>
-<li><p>By default, the <strong>compiler</strong> provides a <strong>default constructor</strong> with <strong>no paramaters</strong> in any class that does not explicitly include a constructor. ( 默认构造函数的访问范围与类的访问范围相同 )</p>
-<ul>
-<li>Instance variables are initialized to their <strong>default values</strong>.</li>
-</ul>
-</li>
-<li><p>A constructor’s <strong>parameter list</strong> specifies the data it requires to perform its task. </p>
-</li>
-<li><p>Constructors <strong>can’t return values</strong>, so they cannot specify a return type.</p>
-</li>
-<li><p>If you declare any constructors for a class, the Java compiler will not create a default constructor for that class.</p>
-<h2 id="3-2-2-静态构造函数"><a href="#3-2-2-静态构造函数" class="headerlink" title="3.2.2 静态构造函数"></a>3.2.2 静态构造函数</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Demo</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;  <span class="comment">//静态构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>静态构造函数的<strong>功能</strong>：对<strong>类</strong>初始化，通常用于初始化类的<strong>静态成员变量</strong></p>
-</li>
-<li><p>调用时间：在<strong>类定义被load到内存中</strong>时，调用了静态构造函数，而不管有无类的对象</p>
-</li>
-<li><p>不管有多少个对象，都只会调用<strong>一次</strong>静态构造函数</p>
-</li>
-<li><p>如果在类中没有自己定义构造函数，框架会为我们生成一个默认构造函数；同样的，如果我们在类中定义了静态变量，而我们又没有定义静态构造函数，那么框架也会生成一个静态构造函数供我们调用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不会加载类定义，即不会调用静态构造函数；没有创建对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1 = <span class="keyword">new</span> Emp();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//会加载类定义，调用了静态构造函数；创建了对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1;</span><br><span class="line">		Class.forName(<span class="string">&quot;Emp&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//会加载类定义，调用了静态构造函数；没有创建对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义的加载与对象的创建是分开的</span></span><br></pre></td></tr></table></figure></li>
-<li><p>如果一个类加载器只加载一个类，且方法区不做垃圾回收，则静态初始化只做一次</p>
-</li>
-<li><p>静态构造方法只会有一个，如果写了多个，编译器会将其合在一起</p>
-</li>
-<li><p>在字节码中，普通构造函数的函数名均为<em>init</em>，静态构造函数的函数名为<em>Cinit</em></p>
-<h2 id="3-2-3-私有构造函数"><a href="#3-2-3-私有构造函数" class="headerlink" title="3.2.3 私有构造函数"></a>3.2.3 私有构造函数</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Emp mInstance = <span class="keyword">new</span> Emp();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mInstance;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Emp e1 = Emp.getInstance();</span><br></pre></td></tr></table></figure></li>
-<li><p>Emp这个类<strong>只有一个</strong>对象   <strong>Singleton</strong></p>
-</li>
-<li><p>mInstance存储在<strong>class类的对象</strong>中</p>
-</li>
-<li><p>即便没有<code>Emp e1 = Emp.getInstance();</code>，仍然会创建出对象</p>
-</li>
-<li><p>若方法区不做垃圾回收，mInstance不会被当成垃圾，有可能造成<strong>内存泄漏</strong>；<em>useless but reachable</em></p>
-</li>
-<li><p><strong>Singleto &amp; Multiton</strong></p>
-<ul>
-<li><strong>Singleton</strong>（单例模式）：通过定义私有的构造函数，使从单例类的外部无法初始化该类，从而确保该类只有一个实例</li>
-<li><strong>Multiton</strong>（多例模式）：该类有多个实例，且从类的外部无法初始化该类</li>
+    <title>Java EE: Spring</title>
+    <url>/blog/2021/03/15/Java-EE-Spring/</url>
+    <content><![CDATA[<blockquote>
+<p>SSM:</p>
+<p>Spring</p>
+<p>SpringMVC</p>
+<p>Mybatis: ORM的一种(object ralation Mapping)，轻量级</p>
+</blockquote>
+<h1 id="1-Spring概述"><a href="#1-Spring概述" class="headerlink" title="1. Spring概述"></a>1. Spring概述</h1><ul>
+<li>Spring是分层的Java SE/EE应用</li>
+<li>以IoC (Inverse Of Control, 反转控制) 和AOP (Aspect Oriented Programming, 面向切面编程) 为内核<ul>
+<li>AOP是OOP的补充</li>
+<li>Java是静态语言，AOP使用反射等技术上改变Java的原生类</li>
+<li>AOP动态生成class对象</li>
+<li>IoC：创建模式，单例模式，多例模式…</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Emp mInstance = <span class="keyword">null</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>( mInstance == <span class="keyword">null</span> ) mInstance = <span class="keyword">new</span> Emp();</span><br><span class="line">		<span class="keyword">return</span> mInstance;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Emp e1 = Emp.getInstance();</span><br></pre></td></tr></table></figure>
+<h1 id="2-面向对象的SOLID原则"><a href="#2-面向对象的SOLID原则" class="headerlink" title="2. 面向对象的SOLID原则"></a>2. 面向对象的SOLID原则</h1><ul>
+<li>Single Responsibility Principle (单一责任原则)</li>
+<li>Open-Closed Principle (开放封闭原则)</li>
+<li>Liskov Substitution Principle (里氏替换原则)</li>
+<li>Interface Segregation Principle (接口分离原则)</li>
+<li>Dependency Inversion Principle (依赖倒置原则)</li>
+</ul>
+<h1 id="3-反射"><a href="#3-反射" class="headerlink" title="3. 反射"></a>3. 反射</h1><ul>
+<li><p>RT-TI (Run Time Type Identificaiton)</p>
+</li>
+<li><p>反射的入口是Class类的对象</p>
+</li>
+<li><p>反射在java.lang.reflect包中</p>
+</li>
+<li><p>得到Class类对象的三种方式</p>
+</li>
+<li><p>调用类的构造函数</p>
+</li>
+<li><p>调用类的方法</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReflect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException </span>&#123;</span><br><span class="line">        <span class="comment">// 反射：通过Class类的对象为入口</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到Class类的对象</span></span><br><span class="line">        <span class="comment">// 1. getClass方法</span></span><br><span class="line">        String s = <span class="string">&quot;ab&quot;</span>;</span><br><span class="line">        Class aClass = s.getClass(); <span class="comment">// 一定有Class类的对象</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. .class</span></span><br><span class="line">        Class c = <span class="keyword">int</span>.class; <span class="comment">// 不关注类的示例，直接去拿类对象，和类耦合(编译期错误）</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Class.forName</span></span><br><span class="line">        <span class="comment">// Class c2 = Class.forName(&quot;abc11&quot;); // 不关注类的实例，且不与类耦合（运行期错误）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到constructor</span></span><br><span class="line">        <span class="comment">// Car.class.newInstance(); // 调用类的无参构造函数, 如果没有会报异常</span></span><br><span class="line"></span><br><span class="line">        Constructor constructor = Car.class.getConstructor(<span class="keyword">int</span>.class); <span class="comment">// 依据参数确定构造函数</span></span><br><span class="line">        Car newCar = (Car) constructor.newInstance(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到method</span></span><br><span class="line">        Method m = Car.class.getDeclaredMethod(<span class="string">&quot;f&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        m.invoke(newCar, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestReflect</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;in car f()...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>若没有<code>Emp e1 = Emp.getInstance();</code>，没有对象会被创建<h1 id="3-3-Others"><a href="#3-3-Others" class="headerlink" title="3.3 Others"></a>3.3 Others</h1><h2 id="3-3-1-instanceof-和-getClass"><a href="#3-3-1-instanceof-和-getClass" class="headerlink" title="3.3.1 instanceof() 和 getClass()"></a>3.3.1 instanceof() 和 getClass()</h2>比较两个对象是否同属于一个类时，可以使用<code>instanceof()</code>和<code>getClass()</code>方法。但二者在判断上是有区别的：</li>
+<h1 id="4-Spring中的IoC-amp-DI"><a href="#4-Spring中的IoC-amp-DI" class="headerlink" title="4. Spring中的IoC &amp; DI"></a>4. Spring中的IoC &amp; DI</h1><ul>
+<li><p>IoC：运行时创建对象 (JavaBean对象)</p>
+</li>
+<li><p>DI：将创建的对象根据依赖关系注入进去</p>
+</li>
+<li><p>Spring是一个管理对象的容器，用&lt;key, value&gt;对的形式来管理</p>
+</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInstanceof</span><span class="params">(Object x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;x instanceof Parent:  &quot;</span>+(x <span class="keyword">instanceof</span> Parent));</span><br><span class="line">		System.out.println(<span class="string">&quot;x instanceof Child:  &quot;</span>+(x <span class="keyword">instanceof</span> Child));</span><br><span class="line">		System.out.println(<span class="string">&quot;x getClass Parent:  &quot;</span>+(x.getClass() == Parent.class));</span><br><span class="line">		System.out.println(<span class="string">&quot;x getClass Child:  &quot;</span>+(x.getClass() == Child.class));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		testInstanceof(<span class="keyword">new</span> Parent());</span><br><span class="line">		System.out.println(<span class="string">&quot;---------------------------&quot;</span>);</span><br><span class="line">		testInstanceof(<span class="keyword">new</span> Child());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出:</span></span><br><span class="line"><span class="comment">x instanceof Parent:  true</span></span><br><span class="line"><span class="comment">x instanceof Child:  false</span></span><br><span class="line"><span class="comment">x getClass Parent:  true</span></span><br><span class="line"><span class="comment">x getClass Child:  false</span></span><br><span class="line"><span class="comment">---------------------------</span></span><br><span class="line"><span class="comment">x instanceof Parent:  true</span></span><br><span class="line"><span class="comment">x instanceof Child:  true</span></span><br><span class="line"><span class="comment">x getClass Parent:  false</span></span><br><span class="line"><span class="comment">x getClass Child:  true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-Annotation的定义与使用"><a href="#5-Annotation的定义与使用" class="headerlink" title="5. Annotation的定义与使用"></a>5. Annotation的定义与使用</h1><ul>
+<li>MetaAnnotation（元注解）：给注解的注解<ul>
+<li>@Documented :被注解的类会被记录在Java documentation中</li>
+<li>@Target(ElementType.TYPE)：表示注解可以用的地方</li>
+<li>@Retention(RetentionPolicy.RUNTIME)：表示注解写给谁看的，Annotation最远可以到什么地方<ul>
+<li>SOURCE：编译器</li>
+<li>CLASS：class loader</li>
+<li>RUNTIME: JVM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性的定义</li>
+<li>使用反射来帮助找到Annotation（RUNTIME）</li>
+<li>Annotation之间的关系：<ul>
+<li>使用注解之间的修饰（相当于继承），除了元注解</li>
+<li>注解之间没有继承的关系</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@MyAnno(detail = &quot;abc&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyAnno myAnno = (MyAnno) Test.class.getAnnotation(MyAnno.class);</span><br><span class="line">        System.out.println(myAnno.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">    <span class="function">String <span class="title">detail</span><span class="params">()</span></span>; <span class="comment">// MyAnno中有一个属性叫做detail</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;xyz&quot;</span>; <span class="comment">// 属性名为value时可以不写&quot;value = ...&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p><code>instanceof()</code>：你是否属于<strong>该类或该类的派生类</strong>，考虑继承关系</p>
-</li>
-<li><p><code>getClass()</code>：不考虑继承关系</p>
-<h2 id="3-3-2-Override-and-Overload"><a href="#3-3-2-Override-and-Overload" class="headerlink" title="3.3.2 Override and Overload"></a>3.3.2 Override and Overload</h2></li>
-<li><p><strong>Override（重写）</strong>：覆盖一个方法并对其重写</p>
-<ul>
-<li>子类的方法与父类的方法的方法名、参数和返回值完全相同，即<strong>方法的标志完全相同</strong></li>
-<li>是<strong>多态性</strong>的表现</li>
-<li>通过子类创建的实例对象调用这个方法时，将调用子类中的定义方法，这相当于把父类中定义的那个完全相同的方法给覆盖了</li>
-<li>子类方法的<strong>访问权限</strong>只能比父类的更大，不能更小</li>
-<li>如果父类的方法是private类型，那么，子类则不存在覆盖的限制，相当于子类中增加了一个全新的方法</li>
-<li>编译时编译器决定调用哪个函数（early blinding）</li>
-<li><code>@Override</code>：一个<em>annotation</em>，告诉编译器接下来将要对方法进行重写，也可以不写；如果接下来没有重写方法，编译器会报错</li>
-</ul>
-</li>
-<li><p><strong>Overload（重载）</strong>：</p>
-<ul>
-<li>表示一个类中可以有多个相同名称的方法，但这些方法的<strong>参数列表</strong>各不相同</li>
-<li>如果两个方法的参数列表完全一样，不能通过其<strong>返回值类型</strong>来实现重载。因为Java无法通过返回类型来判断调用哪个方法</li>
-<li>不能通过<strong>访问范围</strong>进行重载</li>
-<li>对于继承来说，如果某一方法在父类中是访问权限是priavte，那么就不能在子类对其进行重载，如果定义的话，也只是定义了一个新方法，而不会达到重载的效果</li>
-<li>调用哪个方法由运行时的环境决定，在运行时绑定（late blinding）<h2 id="3-3-3-Others"><a href="#3-3-3-Others" class="headerlink" title="3.3.3 Others"></a>3.3.3 Others</h2><h3 id="一、定义初始化和构造初始化"><a href="#一、定义初始化和构造初始化" class="headerlink" title="一、定义初始化和构造初始化"></a>一、定义初始化和构造初始化</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> eid = <span class="number">10</span>;  <span class="comment">//定义初始化，初始化语句不在构造函数内</span></span><br><span class="line">	Emp(<span class="keyword">int</span> eid)&#123;</span><br><span class="line">	<span class="keyword">this</span>.eid = eid;  <span class="comment">//构造初始化，初始化语句在构造函数内</span></span><br><span class="line">	&#125;</span><br><span class="line">	Emp()&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.class中对应于两条初始化语句</span></span><br><span class="line"> Emp(<span class="keyword">int</span> eid);</span><br><span class="line">     <span class="number">0</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">1</span>  invokespecial java.lang.Object() [<span class="number">14</span>]</span><br><span class="line">     <span class="number">4</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">5</span>  bipush <span class="number">10</span></span><br><span class="line">     <span class="number">7</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br><span class="line">    <span class="number">10</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">    <span class="number">11</span>  iload_1 [eid]</span><br><span class="line">    <span class="number">12</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br><span class="line">Emp();</span><br><span class="line">     <span class="number">0</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">1</span>  invokespecial java.lang.Object() [<span class="number">14</span>]</span><br><span class="line">     <span class="number">4</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">5</span>  bipush <span class="number">10</span></span><br><span class="line">     <span class="number">7</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>定义初始化语句在编译后，会放到所有的构造函数的最前面</p>
-</li>
-<li><p>每一段代码的执行都是由方法调用而来的，不会游离于方法之外</p>
-<h3 id="二、this-1"><a href="#二、this-1" class="headerlink" title="二、this(1)"></a>二、this(1)</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	Emp(<span class="keyword">int</span> eid)&#123;</span><br><span class="line">	<span class="keyword">this</span>.eid = eid;  </span><br><span class="line">	&#125;</span><br><span class="line">	Emp()&#123;</span><br><span class="line">	<span class="keyword">this</span>(<span class="number">1</span>);  <span class="comment">//在一个构造函数中调用另外一个构造函数，即调用Emp（int eid)</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>this</strong>:</p>
-<ul>
-<li>类似于指针，<code>this.eid = eid</code></li>
-<li><code>this(1)</code>：在一个构造函数中调用另外一个构造函数<h3 id="三、声明变长参数的方法"><a href="#三、声明变长参数的方法" class="headerlink" title="三、声明变长参数的方法"></a>三、声明变长参数的方法</h3></li>
+<h1 id="6-Spring中DI的细节"><a href="#6-Spring中DI的细节" class="headerlink" title="6. Spring中DI的细节"></a>6. Spring中DI的细节</h1><ul>
+<li>一个接口实现两个类，且未指定，注入哪个？<ul>
+<li>会报异常</li>
+<li>@Autowired</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>... x)</span></span>&#123;</span><br><span class="line">	System.out.println(x.getClass().getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">[I</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>int... x</code>：实际上，参数是一个int类型的数组<h3 id="四、传参"><a href="#四、传参" class="headerlink" title="四、传参"></a>四、传参</h3></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		list.add(<span class="number">1</span>);</span><br><span class="line">		System.out.println(list.size());</span><br><span class="line">		addElement(list);</span><br><span class="line">		System.out.println(list.size());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(List&lt;Integer&gt; L)</span></span>&#123;   <span class="comment">//传入的是L的地址</span></span><br><span class="line">		L.add(<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>Java中传参只有传值，上面的代码穿的是L的地址，本质上还是在传值</p>
-<h3 id="五、静态函数和静态成员变量"><a href="#五、静态函数和静态成员变量" class="headerlink" title="五、静态函数和静态成员变量"></a>五、静态函数和静态成员变量</h3><ul>
-<li>static与非static方法的区别：<ul>
-<li>static方法：没有this变量</li>
-<li>非static方法：有this变量，先将this压入栈中</li>
-<li>都在方法区</li>
-</ul>
-</li>
-<li>静态的方法不能访问非静态的成员变量<ul>
-<li>因为静态方法没有this指针</li>
-</ul>
-</li>
-<li>非静态方法可以访问静态成员变量<h3 id="六、流程控制语句"><a href="#六、流程控制语句" class="headerlink" title="六、流程控制语句"></a>六、流程控制语句</h3><h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法1</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=<span class="number">20</span>; i++)&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方法2: for(声明循环变量: 数组名)&#123;&#125;</span></span><br><span class="line"><span class="keyword">int</span>[] ints = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i: ints)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(key)&#123;</span><br><span class="line"><span class="keyword">case</span> value:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">String country = <span class="string">&quot;xx&quot;</span></span><br><span class="line"><span class="keyword">switch</span>(country)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;China&quot;</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;USA&quot;</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Java中switch语句的value可以为String类型</span></span><br></pre></td></tr></table></figure>
-<h4 id="break-amp-continue"><a href="#break-amp-continue" class="headerlink" title="break &amp; continue"></a>break &amp; continue</h4><ul>
-<li><strong>break</strong>：在switch或loop外部中断（中止当前所在的循环语句）</li>
-<li><strong>continue</strong>：中止本次循环，开始下一次循环</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		outer: <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line">			inner: <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">2</span>; j++)&#123;</span><br><span class="line">				System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">				<span class="keyword">break</span> outer;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以通过标记中止外层循环</span></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>学习笔记</category>
-        <category>Java</category>
+        <category>JavaEE</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>JavaEE</tag>
       </tags>
   </entry>
   <entry>
@@ -686,6 +774,19 @@
       </tags>
   </entry>
   <entry>
+    <title>Java学习：5. Java Stream</title>
+    <url>/blog/2021/03/16/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A5-Java-Stream/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/blog/2021/03/13/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -742,6 +843,176 @@
       </categories>
   </entry>
   <entry>
+    <title>Java学习：3. Methods</title>
+    <url>/blog/2021/03/13/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A3.%20Methods/</url>
+    <content><![CDATA[<h1 id="3-1-Method-Call-Stack-and-Activation-Records"><a href="#3-1-Method-Call-Stack-and-Activation-Records" class="headerlink" title="3.1 Method-Call Stack and Activation Records"></a>3.1 Method-Call Stack and Activation Records</h1><h2 id="3-1-1-Stack-data-structure"><a href="#3-1-1-Stack-data-structure" class="headerlink" title="3.1.1 Stack data structure"></a>3.1.1 Stack data structure</h2><ul>
+<li><p><strong>Pushing</strong>: Placing a dish on the pile at the top</p>
+</li>
+<li><p><strong>Popping</strong>: Removing a dish from the pile from the top</p>
+</li>
+<li><p><strong>LIFO</strong> data structures: The last item pushed(inserted) on the stack is the first item popped(removed) from the stack. (<strong>last-in, first-out</strong>)</p>
+<h2 id="3-1-2-Activation-Records"><a href="#3-1-2-Activation-Records" class="headerlink" title="3.1.2 Activation Records"></a>3.1.2 Activation Records</h2></li>
+<li><p>When a program calls a method, the called method must know how to return to its caller</p>
+<ul>
+<li>The <strong>return address</strong> of the calling method is pushed onto the <strong>method-call stack</strong></li>
+</ul>
+</li>
+<li><p>If a series of method calls occurs, the successive return addresses are pushed onto the stack in last-on, first-out order</p>
+</li>
+<li><p>The <strong>method-call stack</strong> also contains <strong>the memory for the local variables</strong> used in each invocation of a method during a program’s execution</p>
+<ul>
+<li>Stored as a portion of the program-execution stack known as the <strong>activation record</strong> or <strong>stack frame</strong> of the method call</li>
+</ul>
+</li>
+<li><p>When a <strong>method call</strong> is made, the <strong>stack frame</strong> for that method call is <strong>pushed</strong> onto the <strong>method-call stack</strong></p>
+</li>
+<li><p>When the <strong>method returns</strong> to its caller, the method’s activation record is <strong>popped off</strong> the stack and those local variables are no longer known to the program</p>
+</li>
+<li><p>If more method calls occurs than can have their stack frames stored on the method-call stack, an error known as a <strong>stack overflow</strong> occurs</p>
+</li>
+<li><p><strong>overflow</strong>与<strong>内存</strong>有关</p>
+</li>
+<li><p>栈有大小限制</p>
+</li>
+<li><p>对于stack空间，是根据方法的调用与返回来管理的，<strong>不需要GC</strong></p>
+</li>
+<li><p>stack保存了方法的调用关系</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		f();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">		f();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//java.lang.StackoverflowError</span></span><br></pre></td></tr></table></figure></li>
+<li><p>main() -&gt; a() -&gt; b() -&gt; c() 在一个<strong>线程</strong>中，</p>
+</li>
+<li><p>一个java程序在运行时，有多少个<strong>线程</strong>就需要多少个<strong>栈</strong>，每个线程都有自己的栈空间</p>
+</li>
+<li><p>一个栈中的方法可以跨对象，即一个线程中的方法可以跨对象，<strong>线程只与方法有关</strong>。因为方法不知道什么叫对象，非静态方法在实现时将<strong>this指针</strong> 首先压入栈中。</p>
+<h1 id="3-2-Constructors"><a href="#3-2-Constructors" class="headerlink" title="3.2 Constructors"></a>3.2 Constructors</h1><h2 id="3-2-1-普通构造函数"><a href="#3-2-1-普通构造函数" class="headerlink" title="3.2.1 普通构造函数"></a>3.2.1 普通构造函数</h2></li>
+<li><p><strong>Roles</strong> of the constructors：<strong>Initializing objects</strong>，instand of requesting memory.</p>
+</li>
+<li><p>Java requies a <strong>constructor</strong> that <strong>initializes an object</strong> of a class <strong>when the object is created</strong>.</p>
+</li>
+<li><p>Keyword <strong>new</strong> <strong>requests memory</strong> from the system to store an object, then calls the corresponding class’s <strong>constructor</strong> to <strong>initialize</strong> the object.</p>
+</li>
+<li><p>A constructor must have <strong>the same name</strong> as the class.</p>
+</li>
+<li><p>By default, the <strong>compiler</strong> provides a <strong>default constructor</strong> with <strong>no paramaters</strong> in any class that does not explicitly include a constructor. ( 默认构造函数的访问范围与类的访问范围相同 )</p>
+<ul>
+<li>Instance variables are initialized to their <strong>default values</strong>.</li>
+</ul>
+</li>
+<li><p>A constructor’s <strong>parameter list</strong> specifies the data it requires to perform its task. </p>
+</li>
+<li><p>Constructors <strong>can’t return values</strong>, so they cannot specify a return type.</p>
+</li>
+<li><p>If you declare any constructors for a class, the Java compiler will not create a default constructor for that class.</p>
+<h2 id="3-2-2-静态构造函数"><a href="#3-2-2-静态构造函数" class="headerlink" title="3.2.2 静态构造函数"></a>3.2.2 静态构造函数</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Demo</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;  <span class="comment">//静态构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>静态构造函数的<strong>功能</strong>：对<strong>类</strong>初始化，通常用于初始化类的<strong>静态成员变量</strong></p>
+</li>
+<li><p>调用时间：在<strong>类定义被load到内存中</strong>时，调用了静态构造函数，而不管有无类的对象</p>
+</li>
+<li><p>不管有多少个对象，都只会调用<strong>一次</strong>静态构造函数</p>
+</li>
+<li><p>如果在类中没有自己定义构造函数，框架会为我们生成一个默认构造函数；同样的，如果我们在类中定义了静态变量，而我们又没有定义静态构造函数，那么框架也会生成一个静态构造函数供我们调用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不会加载类定义，即不会调用静态构造函数；没有创建对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1 = <span class="keyword">new</span> Emp();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//会加载类定义，调用了静态构造函数；创建了对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Emp e1;</span><br><span class="line">		Class.forName(<span class="string">&quot;Emp&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//会加载类定义，调用了静态构造函数；没有创建对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//类定义的加载与对象的创建是分开的</span></span><br></pre></td></tr></table></figure></li>
+<li><p>如果一个类加载器只加载一个类，且方法区不做垃圾回收，则静态初始化只做一次</p>
+</li>
+<li><p>静态构造方法只会有一个，如果写了多个，编译器会将其合在一起</p>
+</li>
+<li><p>在字节码中，普通构造函数的函数名均为<em>init</em>，静态构造函数的函数名为<em>Cinit</em></p>
+<h2 id="3-2-3-私有构造函数"><a href="#3-2-3-私有构造函数" class="headerlink" title="3.2.3 私有构造函数"></a>3.2.3 私有构造函数</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Emp mInstance = <span class="keyword">new</span> Emp();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mInstance;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Emp e1 = Emp.getInstance();</span><br></pre></td></tr></table></figure></li>
+<li><p>Emp这个类<strong>只有一个</strong>对象   <strong>Singleton</strong></p>
+</li>
+<li><p>mInstance存储在<strong>class类的对象</strong>中</p>
+</li>
+<li><p>即便没有<code>Emp e1 = Emp.getInstance();</code>，仍然会创建出对象</p>
+</li>
+<li><p>若方法区不做垃圾回收，mInstance不会被当成垃圾，有可能造成<strong>内存泄漏</strong>；<em>useless but reachable</em></p>
+</li>
+<li><p><strong>Singleto &amp; Multiton</strong></p>
+<ul>
+<li><strong>Singleton</strong>（单例模式）：通过定义私有的构造函数，使从单例类的外部无法初始化该类，从而确保该类只有一个实例</li>
+<li><strong>Multiton</strong>（多例模式）：该类有多个实例，且从类的外部无法初始化该类</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Emp mInstance = <span class="keyword">null</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>( mInstance == <span class="keyword">null</span> ) mInstance = <span class="keyword">new</span> Emp();</span><br><span class="line">		<span class="keyword">return</span> mInstance;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Emp</span><span class="params">()</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Emp e1 = Emp.getInstance();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>若没有<code>Emp e1 = Emp.getInstance();</code>，没有对象会被创建<h1 id="3-3-Others"><a href="#3-3-Others" class="headerlink" title="3.3 Others"></a>3.3 Others</h1><h2 id="3-3-1-instanceof-和-getClass"><a href="#3-3-1-instanceof-和-getClass" class="headerlink" title="3.3.1 instanceof() 和 getClass()"></a>3.3.1 instanceof() 和 getClass()</h2>比较两个对象是否同属于一个类时，可以使用<code>instanceof()</code>和<code>getClass()</code>方法。但二者在判断上是有区别的：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInstanceof</span><span class="params">(Object x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;x instanceof Parent:  &quot;</span>+(x <span class="keyword">instanceof</span> Parent));</span><br><span class="line">		System.out.println(<span class="string">&quot;x instanceof Child:  &quot;</span>+(x <span class="keyword">instanceof</span> Child));</span><br><span class="line">		System.out.println(<span class="string">&quot;x getClass Parent:  &quot;</span>+(x.getClass() == Parent.class));</span><br><span class="line">		System.out.println(<span class="string">&quot;x getClass Child:  &quot;</span>+(x.getClass() == Child.class));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		testInstanceof(<span class="keyword">new</span> Parent());</span><br><span class="line">		System.out.println(<span class="string">&quot;---------------------------&quot;</span>);</span><br><span class="line">		testInstanceof(<span class="keyword">new</span> Child());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出:</span></span><br><span class="line"><span class="comment">x instanceof Parent:  true</span></span><br><span class="line"><span class="comment">x instanceof Child:  false</span></span><br><span class="line"><span class="comment">x getClass Parent:  true</span></span><br><span class="line"><span class="comment">x getClass Child:  false</span></span><br><span class="line"><span class="comment">---------------------------</span></span><br><span class="line"><span class="comment">x instanceof Parent:  true</span></span><br><span class="line"><span class="comment">x instanceof Child:  true</span></span><br><span class="line"><span class="comment">x getClass Parent:  false</span></span><br><span class="line"><span class="comment">x getClass Child:  true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>instanceof()</code>：你是否属于<strong>该类或该类的派生类</strong>，考虑继承关系</p>
+</li>
+<li><p><code>getClass()</code>：不考虑继承关系</p>
+<h2 id="3-3-2-Override-and-Overload"><a href="#3-3-2-Override-and-Overload" class="headerlink" title="3.3.2 Override and Overload"></a>3.3.2 Override and Overload</h2></li>
+<li><p><strong>Override（重写）</strong>：覆盖一个方法并对其重写</p>
+<ul>
+<li>子类的方法与父类的方法的方法名、参数和返回值完全相同，即<strong>方法的标志完全相同</strong></li>
+<li>是<strong>多态性</strong>的表现</li>
+<li>通过子类创建的实例对象调用这个方法时，将调用子类中的定义方法，这相当于把父类中定义的那个完全相同的方法给覆盖了</li>
+<li>子类方法的<strong>访问权限</strong>只能比父类的更大，不能更小</li>
+<li>如果父类的方法是private类型，那么，子类则不存在覆盖的限制，相当于子类中增加了一个全新的方法</li>
+<li>编译时编译器决定调用哪个函数（early blinding）</li>
+<li><code>@Override</code>：一个<em>annotation</em>，告诉编译器接下来将要对方法进行重写，也可以不写；如果接下来没有重写方法，编译器会报错</li>
+</ul>
+</li>
+<li><p><strong>Overload（重载）</strong>：</p>
+<ul>
+<li>表示一个类中可以有多个相同名称的方法，但这些方法的<strong>参数列表</strong>各不相同</li>
+<li>如果两个方法的参数列表完全一样，不能通过其<strong>返回值类型</strong>来实现重载。因为Java无法通过返回类型来判断调用哪个方法</li>
+<li>不能通过<strong>访问范围</strong>进行重载</li>
+<li>对于继承来说，如果某一方法在父类中是访问权限是priavte，那么就不能在子类对其进行重载，如果定义的话，也只是定义了一个新方法，而不会达到重载的效果</li>
+<li>调用哪个方法由运行时的环境决定，在运行时绑定（late blinding）<h2 id="3-3-3-Others"><a href="#3-3-3-Others" class="headerlink" title="3.3.3 Others"></a>3.3.3 Others</h2><h3 id="一、定义初始化和构造初始化"><a href="#一、定义初始化和构造初始化" class="headerlink" title="一、定义初始化和构造初始化"></a>一、定义初始化和构造初始化</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> eid = <span class="number">10</span>;  <span class="comment">//定义初始化，初始化语句不在构造函数内</span></span><br><span class="line">	Emp(<span class="keyword">int</span> eid)&#123;</span><br><span class="line">	<span class="keyword">this</span>.eid = eid;  <span class="comment">//构造初始化，初始化语句在构造函数内</span></span><br><span class="line">	&#125;</span><br><span class="line">	Emp()&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Emp.class中对应于两条初始化语句</span></span><br><span class="line"> Emp(<span class="keyword">int</span> eid);</span><br><span class="line">     <span class="number">0</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">1</span>  invokespecial java.lang.Object() [<span class="number">14</span>]</span><br><span class="line">     <span class="number">4</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">5</span>  bipush <span class="number">10</span></span><br><span class="line">     <span class="number">7</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br><span class="line">    <span class="number">10</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">    <span class="number">11</span>  iload_1 [eid]</span><br><span class="line">    <span class="number">12</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br><span class="line">Emp();</span><br><span class="line">     <span class="number">0</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">1</span>  invokespecial java.lang.Object() [<span class="number">14</span>]</span><br><span class="line">     <span class="number">4</span>  aload_0 [<span class="keyword">this</span>]</span><br><span class="line">     <span class="number">5</span>  bipush <span class="number">10</span></span><br><span class="line">     <span class="number">7</span>  putfield test.Emp.eid : <span class="keyword">int</span> [<span class="number">16</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>定义初始化语句在编译后，会放到所有的构造函数的最前面</p>
+</li>
+<li><p>每一段代码的执行都是由方法调用而来的，不会游离于方法之外</p>
+<h3 id="二、this-1"><a href="#二、this-1" class="headerlink" title="二、this(1)"></a>二、this(1)</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Emp.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emp</span></span>&#123;</span><br><span class="line">	Emp(<span class="keyword">int</span> eid)&#123;</span><br><span class="line">	<span class="keyword">this</span>.eid = eid;  </span><br><span class="line">	&#125;</span><br><span class="line">	Emp()&#123;</span><br><span class="line">	<span class="keyword">this</span>(<span class="number">1</span>);  <span class="comment">//在一个构造函数中调用另外一个构造函数，即调用Emp（int eid)</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>this</strong>:</p>
+<ul>
+<li>类似于指针，<code>this.eid = eid</code></li>
+<li><code>this(1)</code>：在一个构造函数中调用另外一个构造函数<h3 id="三、声明变长参数的方法"><a href="#三、声明变长参数的方法" class="headerlink" title="三、声明变长参数的方法"></a>三、声明变长参数的方法</h3></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>... x)</span></span>&#123;</span><br><span class="line">	System.out.println(x.getClass().getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">[I</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>int... x</code>：实际上，参数是一个int类型的数组<h3 id="四、传参"><a href="#四、传参" class="headerlink" title="四、传参"></a>四、传参</h3></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Demo.java</span></span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		list.add(<span class="number">1</span>);</span><br><span class="line">		System.out.println(list.size());</span><br><span class="line">		addElement(list);</span><br><span class="line">		System.out.println(list.size());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(List&lt;Integer&gt; L)</span></span>&#123;   <span class="comment">//传入的是L的地址</span></span><br><span class="line">		L.add(<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*Output:</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>Java中传参只有传值，上面的代码穿的是L的地址，本质上还是在传值</p>
+<h3 id="五、静态函数和静态成员变量"><a href="#五、静态函数和静态成员变量" class="headerlink" title="五、静态函数和静态成员变量"></a>五、静态函数和静态成员变量</h3><ul>
+<li>static与非static方法的区别：<ul>
+<li>static方法：没有this变量</li>
+<li>非static方法：有this变量，先将this压入栈中</li>
+<li>都在方法区</li>
+</ul>
+</li>
+<li>静态的方法不能访问非静态的成员变量<ul>
+<li>因为静态方法没有this指针</li>
+</ul>
+</li>
+<li>非静态方法可以访问静态成员变量<h3 id="六、流程控制语句"><a href="#六、流程控制语句" class="headerlink" title="六、流程控制语句"></a>六、流程控制语句</h3><h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法1</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=<span class="number">20</span>; i++)&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方法2: for(声明循环变量: 数组名)&#123;&#125;</span></span><br><span class="line"><span class="keyword">int</span>[] ints = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i: ints)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(key)&#123;</span><br><span class="line"><span class="keyword">case</span> value:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">String country = <span class="string">&quot;xx&quot;</span></span><br><span class="line"><span class="keyword">switch</span>(country)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;China&quot;</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;USA&quot;</span>:</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Java中switch语句的value可以为String类型</span></span><br></pre></td></tr></table></figure>
+<h4 id="break-amp-continue"><a href="#break-amp-continue" class="headerlink" title="break &amp; continue"></a>break &amp; continue</h4><ul>
+<li><strong>break</strong>：在switch或loop外部中断（中止当前所在的循环语句）</li>
+<li><strong>continue</strong>：中止本次循环，开始下一次循环</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		outer: <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)&#123;</span><br><span class="line">			inner: <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">2</span>; j++)&#123;</span><br><span class="line">				System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">				<span class="keyword">break</span> outer;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以通过标记中止外层循环</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>武汉大学新生寒假集训---Day5</title>
     <url>/blog/2021/03/13/%E6%AD%A6%E6%B1%89%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E5%AF%92%E5%81%87%E9%9B%86%E8%AE%AD---Day5/</url>
     <content><![CDATA[<blockquote>
@@ -761,281 +1032,6 @@
       <categories>
         <category>题解</category>
       </categories>
-  </entry>
-  <entry>
-    <title>云计算：1. 大数据与云计算</title>
-    <url>/blog/2021/03/15/CloudComputing-1/</url>
-    <content><![CDATA[<h1 id="云计算：1-大数据与云计算"><a href="#云计算：1-大数据与云计算" class="headerlink" title="云计算：1. 大数据与云计算"></a>云计算：1. 大数据与云计算</h1><h2 id="1-IaaS-vs-PaaS-vs-SaaS"><a href="#1-IaaS-vs-PaaS-vs-SaaS" class="headerlink" title="1. IaaS vs PaaS vs SaaS"></a>1. IaaS vs PaaS vs SaaS</h2><p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/v2-1a82f8a4997b0ba53d801639d4c6706e_r.jpg" alt="preview"></p>
-<ul>
-<li>IaaS: Infrastructure as a Service<ul>
-<li>a virtual machine</li>
-</ul>
-</li>
-<li>PaaS: Platform as a Service</li>
-<li>SaaS: Software as a Service</li>
-</ul>
-<h2 id="2-CAP-Principle"><a href="#2-CAP-Principle" class="headerlink" title="2. CAP Principle"></a>2. CAP Principle</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303161406.png"  />
-
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303161730.png"  />
-
-<ul>
-<li>Consistency（一致性）<ul>
-<li>一个写操作返回成功，那么之后的读请求都必须读到这个新数据；如果返回失败，那么所有读操作都不能读到这个数据。所有节点访问同一份最新的数据。</li>
-</ul>
-</li>
-<li>Availability（可用性）<ul>
-<li>对数据更新具备高可用性，请求能够及时处理，不会一直等待，即使出现节点失效。</li>
-</ul>
-</li>
-<li>Partition Tolerance（分区容错性）<ul>
-<li>能容忍网络分区，在网络断开的情况下，被分隔的节点仍能正常对外提供服务。</li>
-</ul>
-</li>
-</ul>
-<p>不可能都达成，最多只能满足其中两个。</p>
-<p>理解CAP理论最简单的方式是想像两个副本处于分区两侧，即两个副本之间的网络断开，不能通信。</p>
-<blockquote>
-<ul>
-<li>如果允许其中一个副本更新，则会导致数据不一致，即丧失了C性质。</li>
-<li>如果为了保证一致性，将分区某一侧的副本设置为不可用，那么又丧失了A性质。</li>
-<li>除非两个副本可以互相通信，才能既保证C又保证A，这又会导致丧失P性质。</li>
-</ul>
-</blockquote>
-<p>一般来说，使用网络通信的分布式系统，无法舍弃P性质，那么就只能在一致性C和可用性A上做一个艰难的选择。</p>
-<h2 id="3-BASE-Theorem"><a href="#3-BASE-Theorem" class="headerlink" title="3. BASE Theorem"></a>3. BASE Theorem</h2><ul>
-<li>BA: Basically Available，基本可用</li>
-<li>S: Soft state，软状态</li>
-<li>E: Eventually consistent，最终一致</li>
-</ul>
-<p>核心思想：如果无法做到强一致性，或者做到强一致性要付出很大的代价，那么应用可以根据自身业务特点，采用适当的方式来使系统达到最终一致性，只要对最终用户没有影响，或者影响是可接受的即可。</p>
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/20210303162448.png"  />
-
-<h2 id="4-奇数个节点（Zookeeper）"><a href="#4-奇数个节点（Zookeeper）" class="headerlink" title="4. 奇数个节点（Zookeeper）"></a>4. 奇数个节点（Zookeeper）</h2><ul>
-<li>防止由脑裂造成的集群不可用</li>
-<li>在容错能力相同的情况下，奇数台更节省资源</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>云计算</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>云计算：2. Google云计算</title>
-    <url>/blog/2021/03/15/CloudComputing-2/</url>
-    <content><![CDATA[<h1 id="云计算：2-Google云计算"><a href="#云计算：2-Google云计算" class="headerlink" title="云计算：2. Google云计算"></a>云计算：2. Google云计算</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/hadoop-an-industry-perspective-8-728.jpg" alt="Apache Hadoop Ecosystem"  />
-
-<p>Hadoop实际上就是谷歌三宝的开源实现，Hadoop MapReduce对应Google MapReduce，HBase对应BigTable，HDFS对应GFS，Zookeepr对应Chubby。</p>
-<ul>
-<li>HDFS（或GFS）为上层提供高效的非结构化存储服务;</li>
-<li>HBase（或BigTable）是提供结构化数据服务的分布式数据库;</li>
-<li>Hadoop MapReduce（或Google MapReduce）是一种并行计算的编程模型，用于作业调度。</li>
-</ul>
-<h2 id="2-Google文件系统GFS"><a href="#2-Google文件系统GFS" class="headerlink" title="2. Google文件系统GFS"></a>2. Google文件系统GFS</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310144620112.png" alt="image-20210310144620112"  />
-
-<h3 id="2-1-系统架构"><a href="#2-1-系统架构" class="headerlink" title="2.1 系统架构"></a>2.1 系统架构</h3><p>GFS的系统架构如图2-1所示。GFS将整个系统的节点分为三类角色：Client（客户端）、Master（主服务器）和Chunk  Server（数据块服务器）。</p>
-<ul>
-<li>Client是GFS提供给应用程序的访问接口，它是一组专用接口，不遵守POSIX规范，以库文件的形式提供。应用程序直接调用这些库函数，并与该库链接在一起。</li>
-<li>Master是GFS的管理节点，在逻辑上只有一个，它保存系统的元数据，负责整个文件系统的管理，是GFS文件系统中的“大脑”。</li>
-<li>Chunk Server负责具体的存储工作。数据以文件的形式存储在Chunk Server上，Chunk Server的个数可以有多个，它的数目直接决定了GFS的规模。GFS将文件按照固定大小进行分块，默认是64MB，每一块称为一个Chunk（数据块），每个Chunk都有一个对应的索引号（Index）。</li>
-</ul>
-<h4 id="1-存取数据"><a href="#1-存取数据" class="headerlink" title="1. 存取数据"></a>1. 存取数据</h4><p>客户端在访问GFS时，首先访问Master节点，获取与之进行交互的Chunk Server信息，然后直接访问这些Chunk  Server，完成数据存取工作。</p>
-<p>GFS的这种设计方法实现了控制流和数据流的分离。Client与Master之间只有控制流，而无数据流，极大地降低了Master的负载。</p>
-<p>Client与Chunk  Server之间直接传输数据流，同时由于文件被分成多个Chunk进行分布式存储，Client可以同时访问多个Chunk  Server，从而使得整个系统的I/O高度并行，系统整体性能得到提高。</p>
-<h4 id="2-写入数据"><a href="#2-写入数据" class="headerlink" title="2. 写入数据"></a>2. 写入数据</h4><p>使用租约机制来保障在跨多个副本的数据写入中保持顺序一致性，减轻master的负担，有主副本所在的Chunk Server来负责控制流水线的安排。</p>
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/v2-73bf6805cb88448095875d3dd190d0af_720w.jpg" alt="img"  />
-
-<ol>
-<li>客户端向 Master 询问要写的 Chunk 的<strong>主副本和其他副本的位置</strong>。如果还没有主副本，那么 Master 就通过租约授权一个。</li>
-<li>Master 会给客户端这些位置信息，客户端会将其缓存起来。并且除非主副本不可达或者其租约到期，客户端不会再向 Master 发送请求。</li>
-<li>客户端将要写的数据推送给各个副本所在的服务器。这里需要注意的一个设计是，GFS 将<strong>数据流和控制流进行了解耦</strong>，即客户端可以以任何顺序进行数据推送而不用像控制流一样先到主备份再到从备份。这样可以使我们独立优化数据流的推送，甚至可以并行推送；对于大数据块写入是很有好处的，下面章节会详细讨论这个事情。每个 ChunkServer 收到数据后不立即落盘，而是使用 LRU 策略放在缓存里，这也是一个将网络IO和硬盘IO进行解耦的一个操作，一是为了提高效率，一是等待<strong>主备份安排写入顺序</strong>。</li>
-<li>当客户端被告知所有副本的数据推送完成后，会向主备份服务器发送写（落盘）请求。主备份所在服务器会把多个并发客户端（如果有的话）的写请求安排一个写入顺序（给每个写请求指定一个<strong>序列号</strong>），并将其写入前面所说的操作日志。</li>
-<li>主备份所在服务器将客户端的写请求以及序列号转给其他副本所在服务器。有了这个唯一对应的序列号，所有副本的落盘顺序就能保持一致。</li>
-<li>所有从备份服务器落完盘后给主备份所在服务器复命。</li>
-<li>主备份所在服务器回复客户端，如果任何副本写入出现了问题，都会报告给客户端。如果遇到问题，可能有两种：a. 所有副本数据均未落盘。b.部分副本数据落盘成功。对于后者就会出现不一致的状态。<strong>客户端</strong>的<strong>库代码</strong>（意味着不用应用代码进行处理）检测到错误后会进行重试，因此在真正成功写入之前，步骤 3~7 可能会重复多次。</li>
-</ol>
-<h4 id="3-分布式事务"><a href="#3-分布式事务" class="headerlink" title="3. 分布式事务"></a>3. 分布式事务</h4><p><strong>两阶段提交</strong>：两阶段提交，顾名思义就是要分两步提交。</p>
-<ul>
-<li>prepare: 存在一个负责协调各个本地资源管理器的事务管理器，本地资源管理器一般是由数据库实现，事务管理器在第一阶段的时候询问各个资源管理器是否都就绪？</li>
-<li>commit/rollback: 如果收到每个资源的回复都是 yes，则在第二阶段提交事务，如果其中任意一个资源的回复是 no, 则回滚事务。</li>
-</ul>
-<h4 id="4-特点"><a href="#4-特点" class="headerlink" title="4. 特点"></a>4. 特点</h4><ol>
-<li>采用中心服务器模式</li>
-<li>不缓存数据</li>
-<li>在用户态下实现</li>
-</ol>
-<h2 id="3-分布式数据处理MapReduce"><a href="#3-分布式数据处理MapReduce" class="headerlink" title="3. 分布式数据处理MapReduce"></a>3. 分布式数据处理MapReduce</h2><h3 id="3-1-编程模型"><a href="#3-1-编程模型" class="headerlink" title="3.1 编程模型"></a>3.1 编程模型</h3><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310153753017.png" alt="image-20210310153753017"  />
-
-<p><strong>Map函数</strong>：对一部分原始数据进行指定的操作。每个Map操作都针对不同的原始数据，因此Map与Map之间是互相独立的，这使得它们可以充分并行化。</p>
-<p><strong>Reduce操作</strong>：对每个Map所产生的一部分中间结果进行合并操作，每个Reduce所处理的Map中间结果是互不交叉的，所有Reduce产生的最终结果经过简单连接就形成了完整的结果集。</p>
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210310154255885.png" alt="image-20210310154255885"  />
-
-<h3 id="3-2-容错机制"><a href="#3-2-容错机制" class="headerlink" title="3.2 容错机制"></a>3.2 容错机制</h3><ul>
-<li>Master失效<ul>
-<li>Master会周期性地设置检查点（checkpoint），并导出Master的数据。一旦某个任务失效，系统就从最近的一个检查点恢复并重新执行。由于只有一个Master在运行，如果Master失效了，则只能终止整个MapReduce程序的运行并重新开始。</li>
-</ul>
-</li>
-<li>Worker失效<ul>
-<li>Master会<strong>周期性地给Worker发送ping</strong>命令，如果没有Worker的应答，则Master认为Worker失效，终止对这个Worker的任务调度，把失效Worker的任务调度到其他Worker上重新执行。</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-其它的MapReduce"><a href="#4-其它的MapReduce" class="headerlink" title="4. 其它的MapReduce"></a>4. 其它的MapReduce</h2><h3 id="4-1-Java-Stream接口"><a href="#4-1-Java-Stream接口" class="headerlink" title="4.1 Java Stream接口"></a>4.1 Java Stream接口</h3><p><a href="https://www.runoob.com/java/java8-streams.html">https://www.runoob.com/java/java8-streams.html</a></p>
-<p><a href="https://blog.csdn.net/yy339452689/article/details/110956119">Stream详解</a></p>
-<p><a href="https://blog.csdn.net/yrsg666/article/details/92837145">spark中RDD算子分类整理</a></p>
-<p><a href="https://blog.csdn.net/qq_35885488/article/details/103185724">Spark无状态和有状态转化操作介绍</a></p>
-<p><a href="https://blog.csdn.net/zhangvalue/article/details/84780428">Spark基础 DAG</a></p>
-<p><a href="https://blog.csdn.net/beautiful_huang/article/details/104267573">kafka 转换算子</a></p>
-<p>Lambda表达式：函数式编程</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>云计算</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Java EE: Spring</title>
-    <url>/blog/2021/03/15/Java-EE-Spring/</url>
-    <content><![CDATA[<blockquote>
-<p>SSM:</p>
-<p>Spring</p>
-<p>SpringMVC</p>
-<p>Mybatis: ORM的一种(object ralation Mapping)，轻量级</p>
-</blockquote>
-<h1 id="1-Spring概述"><a href="#1-Spring概述" class="headerlink" title="1. Spring概述"></a>1. Spring概述</h1><ul>
-<li>Spring是分层的Java SE/EE应用</li>
-<li>以IoC (Inverse Of Control, 反转控制) 和AOP (Aspect Oriented Programming, 面向切面编程) 为内核<ul>
-<li>AOP是OOP的补充</li>
-<li>Java是静态语言，AOP使用反射等技术上改变Java的原生类</li>
-<li>AOP动态生成class对象</li>
-<li>IoC：创建模式，单例模式，多例模式…</li>
-</ul>
-</li>
-</ul>
-<h1 id="2-面向对象的SOLID原则"><a href="#2-面向对象的SOLID原则" class="headerlink" title="2. 面向对象的SOLID原则"></a>2. 面向对象的SOLID原则</h1><ul>
-<li>Single Responsibility Principle (单一责任原则)</li>
-<li>Open-Closed Principle (开放封闭原则)</li>
-<li>Liskov Substitution Principle (里氏替换原则)</li>
-<li>Interface Segregation Principle (接口分离原则)</li>
-<li>Dependency Inversion Principle (依赖倒置原则)</li>
-</ul>
-<h1 id="3-反射"><a href="#3-反射" class="headerlink" title="3. 反射"></a>3. 反射</h1><ul>
-<li><p>RT-TI (Run Time Type Identificaiton)</p>
-</li>
-<li><p>反射的入口是Class类的对象</p>
-</li>
-<li><p>反射在java.lang.reflect包中</p>
-</li>
-<li><p>得到Class类对象的三种方式</p>
-</li>
-<li><p>调用类的构造函数</p>
-</li>
-<li><p>调用类的方法</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReflect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException </span>&#123;</span><br><span class="line">        <span class="comment">// 反射：通过Class类的对象为入口</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到Class类的对象</span></span><br><span class="line">        <span class="comment">// 1. getClass方法</span></span><br><span class="line">        String s = <span class="string">&quot;ab&quot;</span>;</span><br><span class="line">        Class aClass = s.getClass(); <span class="comment">// 一定有Class类的对象</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. .class</span></span><br><span class="line">        Class c = <span class="keyword">int</span>.class; <span class="comment">// 不关注类的示例，直接去拿类对象，和类耦合(编译期错误）</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Class.forName</span></span><br><span class="line">        <span class="comment">// Class c2 = Class.forName(&quot;abc11&quot;); // 不关注类的实例，且不与类耦合（运行期错误）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到constructor</span></span><br><span class="line">        <span class="comment">// Car.class.newInstance(); // 调用类的无参构造函数, 如果没有会报异常</span></span><br><span class="line"></span><br><span class="line">        Constructor constructor = Car.class.getConstructor(<span class="keyword">int</span>.class); <span class="comment">// 依据参数确定构造函数</span></span><br><span class="line">        Car newCar = (Car) constructor.newInstance(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到method</span></span><br><span class="line">        Method m = Car.class.getDeclaredMethod(<span class="string">&quot;f&quot;</span>, <span class="keyword">null</span>);</span><br><span class="line">        m.invoke(newCar, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestReflect</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;in car f()...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-Spring中的IoC-amp-DI"><a href="#4-Spring中的IoC-amp-DI" class="headerlink" title="4. Spring中的IoC &amp; DI"></a>4. Spring中的IoC &amp; DI</h1><ul>
-<li><p>IoC：运行时创建对象 (JavaBean对象)</p>
-</li>
-<li><p>DI：将创建的对象根据依赖关系注入进去</p>
-</li>
-<li><p>Spring是一个管理对象的容器，用&lt;key, value&gt;对的形式来管理</p>
-</li>
-</ul>
-<h1 id="5-Annotation的定义与使用"><a href="#5-Annotation的定义与使用" class="headerlink" title="5. Annotation的定义与使用"></a>5. Annotation的定义与使用</h1><ul>
-<li>MetaAnnotation（元注解）：给注解的注解<ul>
-<li>@Documented :被注解的类会被记录在Java documentation中</li>
-<li>@Target(ElementType.TYPE)：表示注解可以用的地方</li>
-<li>@Retention(RetentionPolicy.RUNTIME)：表示注解写给谁看的，Annotation最远可以到什么地方<ul>
-<li>SOURCE：编译器</li>
-<li>CLASS：class loader</li>
-<li>RUNTIME: JVM</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>属性的定义</li>
-<li>使用反射来帮助找到Annotation（RUNTIME）</li>
-<li>Annotation之间的关系：<ul>
-<li>使用注解之间的修饰（相当于继承），除了元注解</li>
-<li>注解之间没有继承的关系</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@MyAnno(detail = &quot;abc&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyAnno myAnno = (MyAnno) Test.class.getAnnotation(MyAnno.class);</span><br><span class="line">        System.out.println(myAnno.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">    <span class="function">String <span class="title">detail</span><span class="params">()</span></span>; <span class="comment">// MyAnno中有一个属性叫做detail</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;xyz&quot;</span>; <span class="comment">// 属性名为value时可以不写&quot;value = ...&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="6-Spring中DI的细节"><a href="#6-Spring中DI的细节" class="headerlink" title="6. Spring中DI的细节"></a>6. Spring中DI的细节</h1><ul>
-<li>一个接口实现两个类，且未指定，注入哪个？<ul>
-<li>会报异常</li>
-<li>@Autowired</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法：树状数组/二叉索引树（Binary Indexed Tree）</title>
-    <url>/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h1><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h2><blockquote>
-<p> 树状数组可以高效地求出连续的一段元素之和或者更新单个元素的值。但是无法高效地给某一个区间的所有元素同时加上一个值。</p>
-</blockquote>
-<p>支持两种操作：</p>
-<ul>
-<li><code>Add (x, d)</code>：让$ A_x $增加$ d $</li>
-<li><code>Query (R)</code>：以$ O(log n) $的复杂度计算前缀和</li>
-</ul>
-<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315200852481.png" alt="image-20210315200852481"></p>
-<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315200956732.png" alt="image-20210315200956732"></p>
-<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315201046181.png" alt="image-20210315201046181"></p>
-<p>注意：</p>
-<p>array indices的为$ x $，则$ C[x] $表示的是$ [x-lowbit(x), x] $的个数总和。</p>
-<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h2><p>三个操作的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span> <span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span> <span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        ret += C[x];</span><br><span class="line">        x -= lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span> <span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x &lt;= n) &#123;</span><br><span class="line">        C[x] +=d;</span><br><span class="line">        x += lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="3-例题"><a href="#3-例题" class="headerlink" title="3. 例题"></a>3. 例题</h2><blockquote>
-<p><a href="https://vjudge.net/problem/UVALive-4329">乒乓比赛</a></p>
-</blockquote>
-<p>考虑第$ i $个人当裁判的情形：</p>
-<p>此时裁判的技能值为$ a_i $，假设$a_1$到$ a_{i-1} $中有$ c_i $个比$ a_i $小，则有$ (i-1)-c_i $个比$ a_i $大；假设$ a_{i+1} $到$ a_n $中有$ d_i $个比$ a_i $小，则有$ (n-i)-d_i $个比$ a_i $大。则组织比赛的数量为$ \sum_{i=1}^{n}{c_i*(n-i-d_i) + (i-1-c_i)*d_i} $。因此问题转化为求解当第$ i $个人当裁判时，$ c_i $和$ d_i $的值。</p>
-<p>$ c_i = x(1) + x(2) + … + x(a_i-1) = sum(a_i-1) $，$ x[i] $表示$ i $出现的个数，也就是说我们需要动态地修改单个元素值并且求前缀和，使用BIT算法。</p>
-<p>求$ c_i $时，从左至右遍历，边修改边求前缀和；求$ d_i $时，从右至左遍历，边修改边求前缀和。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 树状数组 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e4</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxa = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="keyword">int</span> left_bit[maxa]; <span class="comment">// left_bit</span></span><br><span class="line"><span class="keyword">int</span> right_bit[maxa]; <span class="comment">// right_bit</span></span><br><span class="line"><span class="keyword">int</span> c[maxn]; <span class="comment">// left</span></span><br><span class="line"><span class="keyword">int</span> d[maxn]; <span class="comment">// right</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x &amp; -x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum1</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">		ret += left_bit[x];</span><br><span class="line">		x -= lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum2</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">		ret += right_bit[x];</span><br><span class="line">		x -= lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add1</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (x &lt;= maxa) &#123;</span><br><span class="line">		left_bit[x]++;</span><br><span class="line"><span class="comment">//		printf(&quot;%d %d\n&quot;, x, left_bit[x]);</span></span><br><span class="line">		x += lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add2</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (x &lt;= maxa) &#123;</span><br><span class="line">		right_bit[x]++;</span><br><span class="line">		x += lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t; <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">	<span class="keyword">while</span> (t--) &#123;</span><br><span class="line">		<span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">		<span class="built_in">memset</span>(left_bit, <span class="number">0</span>, <span class="keyword">sizeof</span>(left_bit));</span><br><span class="line">		<span class="built_in">memset</span>(right_bit, <span class="number">0</span>, <span class="keyword">sizeof</span>(right_bit));</span><br><span class="line">		<span class="built_in">memset</span>(c, <span class="number">0</span>, <span class="keyword">sizeof</span>(c));</span><br><span class="line">		<span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			c[i] = sum1(a[i] - <span class="number">1</span>);</span><br><span class="line"><span class="comment">//			printf(&quot;a[i] is: %d\n&quot;, a[i]);</span></span><br><span class="line">			add1(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">			d[i] = sum2(a[i] - <span class="number">1</span>);</span><br><span class="line">			add2(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n<span class="number">-1</span>; i++) &#123;</span><br><span class="line">			res += c[i] * (n - i - d[i]) + d[i] * (i - <span class="number">1</span> - c[i]);</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//		for (int i = 1; i &lt;= n; i++) &#123;</span></span><br><span class="line"><span class="comment">//			printf(&quot;%d %d\n&quot;, c[i], d[i]);</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>树状数组</tag>
-        <tag>二叉索引树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java学习：5. Java Stream</title>
-    <url>/blog/2021/03/16/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A5-Java-Stream/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>MapReduce</tag>
-      </tags>
   </entry>
   <entry>
     <title>算法：线段树</title>
@@ -1105,48 +1101,64 @@
       </tags>
   </entry>
   <entry>
-    <title>云计算：3. 容器</title>
-    <url>/blog/2021/03/17/CloudComputing-3/</url>
-    <content><![CDATA[<h1 id="云计算：3-容器"><a href="#云计算：3-容器" class="headerlink" title="云计算：3. 容器"></a>云计算：3. 容器</h1><h2 id="1-Docker镜像"><a href="#1-Docker镜像" class="headerlink" title="1. Docker镜像"></a>1. Docker镜像</h2><ul>
-<li>容器镜像打包了应用及其依赖（包含完整操作系统的所有文件和目录）</li>
-<li>容器镜像包含了应用运行所需要的所有依赖。</li>
-<li>实现了本地环境与云端环境的高一致性</li>
-<li>通过6个Namespace和Cgroup为每个应用创建隔离的运行环境</li>
-</ul>
-<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317142915755.png" alt="image-20210317142915755"></p>
-<h2 id="2-Container-VS-VM-Virtual-Machine"><a href="#2-Container-VS-VM-Virtual-Machine" class="headerlink" title="2. Container VS VM (Virtual Machine)"></a>2. Container VS VM (Virtual Machine)</h2><p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317143240171.png" alt="image-20210317143240171"></p>
+    <title>算法：树状数组/二叉索引树（Binary Indexed Tree）</title>
+    <url>/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h1><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h2><blockquote>
+<p> 树状数组可以高效地求出连续的一段元素之和或者更新单个元素的值。但是无法高效地给某一个区间的所有元素同时加上一个值。</p>
+</blockquote>
+<p>支持两种操作：</p>
 <ul>
-<li>Virtual Machine<ul>
-<li>Hypervisor：例如Win10等操作系统</li>
-<li>Guest Operating System：消耗资源很大</li>
-<li>优点：隔离性很好</li>
-<li>缺点：CPU、硬盘、内存占用高，启动速度慢</li>
+<li><code>Add (x, d)</code>：让$ A_x $增加$ d $</li>
+<li><code>Query (R)</code>：以$ O(log n) $的复杂度计算前缀和</li>
 </ul>
-</li>
-<li>Container<ul>
-<li>Host Operating System: Linux操作系统</li>
-<li>Docker: Docker Engine</li>
-<li>App: Docker image</li>
-<li>优点：占用资源小，响应速度快</li>
-<li>缺点：隔离性没有VM好（一定是缺点吗？）</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210317144952233.png" alt="image-20210317144952233"></p>
-<h2 id="3-容器编排引擎"><a href="#3-容器编排引擎" class="headerlink" title="3. 容器编排引擎"></a>3. 容器编排引擎</h2><p>Kubernetes, MESOS, Docker Swarm</p>
+<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315200852481.png" alt="image-20210315200852481"></p>
+<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315200956732.png" alt="image-20210315200956732"></p>
+<p><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210315201046181.png" alt="image-20210315201046181"></p>
+<p>注意：</p>
+<p>array indices的为$ x $，则$ C[x] $表示的是$ [x-lowbit(x), x] $的个数总和。</p>
+<h2 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h2><p>三个操作的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span> <span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span> <span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        ret += C[x];</span><br><span class="line">        x -= lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span> <span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x &lt;= n) &#123;</span><br><span class="line">        C[x] +=d;</span><br><span class="line">        x += lowbit(x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-例题"><a href="#3-例题" class="headerlink" title="3. 例题"></a>3. 例题</h2><blockquote>
+<p><a href="https://vjudge.net/problem/UVALive-4329">乒乓比赛</a></p>
+</blockquote>
+<p>考虑第$ i $个人当裁判的情形：</p>
+<p>此时裁判的技能值为$ a_i $，假设$a_1$到$ a_{i-1} $中有$ c_i $个比$ a_i $小，则有$ (i-1)-c_i $个比$ a_i $大；假设$ a_{i+1} $到$ a_n $中有$ d_i $个比$ a_i $小，则有$ (n-i)-d_i $个比$ a_i $大。则组织比赛的数量为$ \sum_{i=1}^{n}{c_i*(n-i-d_i) + (i-1-c_i)*d_i} $。因此问题转化为求解当第$ i $个人当裁判时，$ c_i $和$ d_i $的值。</p>
+<p>$ c_i = x(1) + x(2) + … + x(a_i-1) = sum(a_i-1) $，$ x[i] $表示$ i $出现的个数，也就是说我们需要动态地修改单个元素值并且求前缀和，使用BIT算法。</p>
+<p>求$ c_i $时，从左至右遍历，边修改边求前缀和；求$ d_i $时，从右至左遍历，边修改边求前缀和。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 树状数组 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e4</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxa = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="keyword">int</span> left_bit[maxa]; <span class="comment">// left_bit</span></span><br><span class="line"><span class="keyword">int</span> right_bit[maxa]; <span class="comment">// right_bit</span></span><br><span class="line"><span class="keyword">int</span> c[maxn]; <span class="comment">// left</span></span><br><span class="line"><span class="keyword">int</span> d[maxn]; <span class="comment">// right</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x &amp; -x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum1</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">		ret += left_bit[x];</span><br><span class="line">		x -= lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum2</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">		ret += right_bit[x];</span><br><span class="line">		x -= lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add1</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (x &lt;= maxa) &#123;</span><br><span class="line">		left_bit[x]++;</span><br><span class="line"><span class="comment">//		printf(&quot;%d %d\n&quot;, x, left_bit[x]);</span></span><br><span class="line">		x += lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add2</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (x &lt;= maxa) &#123;</span><br><span class="line">		right_bit[x]++;</span><br><span class="line">		x += lowbit(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t; <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">	<span class="keyword">while</span> (t--) &#123;</span><br><span class="line">		<span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">		<span class="built_in">memset</span>(left_bit, <span class="number">0</span>, <span class="keyword">sizeof</span>(left_bit));</span><br><span class="line">		<span class="built_in">memset</span>(right_bit, <span class="number">0</span>, <span class="keyword">sizeof</span>(right_bit));</span><br><span class="line">		<span class="built_in">memset</span>(c, <span class="number">0</span>, <span class="keyword">sizeof</span>(c));</span><br><span class="line">		<span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			c[i] = sum1(a[i] - <span class="number">1</span>);</span><br><span class="line"><span class="comment">//			printf(&quot;a[i] is: %d\n&quot;, a[i]);</span></span><br><span class="line">			add1(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">			d[i] = sum2(a[i] - <span class="number">1</span>);</span><br><span class="line">			add2(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n<span class="number">-1</span>; i++) &#123;</span><br><span class="line">			res += c[i] * (n - i - d[i]) + d[i] * (i - <span class="number">1</span> - c[i]);</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//		for (int i = 1; i &lt;= n; i++) &#123;</span></span><br><span class="line"><span class="comment">//			printf(&quot;%d %d\n&quot;, c[i], d[i]);</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>学习笔记</category>
-        <category>云计算</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>容器</tag>
+        <tag>树状数组</tag>
+        <tag>二叉索引树</tag>
       </tags>
   </entry>
   <entry>
     <title>All categories</title>
     <url>/blog/categories/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>每周刷题记录</title>
+    <url>/blog/exercise-record/index.html</url>
+    <content><![CDATA[<h3 id="2021-3-21"><a href="#2021-3-21" class="headerlink" title="2021.3.21"></a>2021.3.21</h3><p>树状数组：leetcode-1649 通过指令创建有序数组</p>
+<p>树状数组：UVALive-4329 Ping pong</p>
+<p>模拟：leetcode-59 螺旋矩阵Ⅱ</p>
+<p>动态规划：WHUOJ-2768 方格取数</p>
+<p>dfs: WHUOJ-2657 岛屿面积有多大</p>
+<p>dfs: leetcode-695 岛屿的最大面积</p>
+<p>链表：leetcode-92 反转链表Ⅱ</p>
+]]></content>
   </entry>
   <entry>
     <title>All tags</title>
@@ -1202,6 +1214,11 @@
   </entry>
   <entry>
     <title></title>
+    <url>/blog/lib/pace/pace-theme-big-counter.min.css</url>
+    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace.pace-inactive .pace-progress{display:none}.pace .pace-progress{position:fixed;z-index:2000;top:0;right:0;height:5rem;width:5rem;-webkit-transform:translate3d(0,0,0)!important;-ms-transform:translate3d(0,0,0)!important;transform:translate3d(0,0,0)!important}.pace .pace-progress:after{display:block;position:absolute;top:0;right:.5rem;content:attr(data-progress-text);font-family:"Helvetica Neue",sans-serif;font-weight:100;font-size:5rem;line-height:1;text-align:right;color:rgba(34,153,221,.19999999999999996)}]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/blog/lib/pace/README.html</url>
     <content><![CDATA[<h1 align="center"><a href="https://github.com/HubSpot/pace">Progress bar</a> for <a href="https://github.com/theme-next">NexT</a></h1>
 
@@ -1239,11 +1256,6 @@
   </entry>
   <entry>
     <title></title>
-    <url>/blog/lib/pace/pace-theme-big-counter.min.css</url>
-    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace.pace-inactive .pace-progress{display:none}.pace .pace-progress{position:fixed;z-index:2000;top:0;right:0;height:5rem;width:5rem;-webkit-transform:translate3d(0,0,0)!important;-ms-transform:translate3d(0,0,0)!important;transform:translate3d(0,0,0)!important}.pace .pace-progress:after{display:block;position:absolute;top:0;right:.5rem;content:attr(data-progress-text);font-family:"Helvetica Neue",sans-serif;font-weight:100;font-size:5rem;line-height:1;text-align:right;color:rgba(34,153,221,.19999999999999996)}]]></content>
-  </entry>
-  <entry>
-    <title></title>
     <url>/blog/lib/pace/pace-theme-bounce.min.css</url>
     <content><![CDATA[.pace{width:140px;height:300px;position:fixed;top:-90px;right:-20px;z-index:2000;-webkit-transform:scale(0);-moz-transform:scale(0);-ms-transform:scale(0);-o-transform:scale(0);transform:scale(0);opacity:0;-webkit-transition:all 2s linear 0s;-moz-transition:all 2s linear 0s;transition:all 2s linear 0s}.pace.pace-active{-webkit-transform:scale(.25);-moz-transform:scale(.25);-ms-transform:scale(.25);-o-transform:scale(.25);transform:scale(.25);opacity:1}.pace .pace-activity{width:140px;height:140px;border-radius:70px;background:#29d;position:absolute;top:0;z-index:1911;-webkit-animation:pace-bounce 1s infinite;-moz-animation:pace-bounce 1s infinite;-o-animation:pace-bounce 1s infinite;-ms-animation:pace-bounce 1s infinite;animation:pace-bounce 1s infinite}.pace .pace-progress{position:absolute;display:block;left:50%;bottom:0;z-index:1910;margin-left:-30px;width:60px;height:75px;background:rgba(20,20,20,.1);box-shadow:0 0 20px 35px rgba(20,20,20,.1);border-radius:30px/40px;-webkit-transform:scaleY(.3)!important;-moz-transform:scaleY(.3)!important;-ms-transform:scaleY(.3)!important;-o-transform:scaleY(.3)!important;transform:scaleY(.3)!important;-webkit-animation:pace-compress .5s infinite alternate;-moz-animation:pace-compress .5s infinite alternate;-o-animation:pace-compress .5s infinite alternate;-ms-animation:pace-compress .5s infinite alternate;animation:pace-compress .5s infinite alternate}@-webkit-keyframes pace-bounce{0%,100%,95%{top:0;-webkit-animation-timing-function:ease-in}50%{top:140px;height:140px;-webkit-animation-timing-function:ease-out}55%{top:160px;height:120px;border-radius:70px/60px;-webkit-animation-timing-function:ease-in}65%{top:120px;height:140px;border-radius:70px;-webkit-animation-timing-function:ease-out}}@-moz-keyframes pace-bounce{0%,100%,95%{top:0;-moz-animation-timing-function:ease-in}50%{top:140px;height:140px;-moz-animation-timing-function:ease-out}55%{top:160px;height:120px;border-radius:70px/60px;-moz-animation-timing-function:ease-in}65%{top:120px;height:140px;border-radius:70px;-moz-animation-timing-function:ease-out}}@keyframes pace-bounce{0%,100%,95%{top:0;animation-timing-function:ease-in}50%{top:140px;height:140px;animation-timing-function:ease-out}55%{top:160px;height:120px;border-radius:70px/60px;animation-timing-function:ease-in}65%{top:120px;height:140px;border-radius:70px;animation-timing-function:ease-out}}@-webkit-keyframes pace-compress{0%{bottom:0;margin-left:-30px;width:60px;height:75px;background:rgba(20,20,20,.1);box-shadow:0 0 20px 35px rgba(20,20,20,.1);border-radius:30px/40px;-webkit-animation-timing-function:ease-in}100%{bottom:30px;margin-left:-10px;width:20px;height:5px;background:rgba(20,20,20,.3);box-shadow:0 0 20px 35px rgba(20,20,20,.3);border-radius:20px;-webkit-animation-timing-function:ease-out}}@-moz-keyframes pace-compress{0%{bottom:0;margin-left:-30px;width:60px;height:75px;background:rgba(20,20,20,.1);box-shadow:0 0 20px 35px rgba(20,20,20,.1);border-radius:30px/40px;-moz-animation-timing-function:ease-in}100%{bottom:30px;margin-left:-10px;width:20px;height:5px;background:rgba(20,20,20,.3);box-shadow:0 0 20px 35px rgba(20,20,20,.3);border-radius:20px;-moz-animation-timing-function:ease-out}}@keyframes pace-compress{0%{bottom:0;margin-left:-30px;width:60px;height:75px;background:rgba(20,20,20,.1);box-shadow:0 0 20px 35px rgba(20,20,20,.1);border-radius:30px/40px;animation-timing-function:ease-in}100%{bottom:30px;margin-left:-10px;width:20px;height:5px;background:rgba(20,20,20,.3);box-shadow:0 0 20px 35px rgba(20,20,20,.3);border-radius:20px;animation-timing-function:ease-out}}]]></content>
   </entry>
@@ -1264,6 +1276,11 @@
   </entry>
   <entry>
     <title></title>
+    <url>/blog/lib/pace/pace-theme-corner-indicator.min.css</url>
+    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace .pace-activity{display:block;position:fixed;z-index:2000;top:0;right:0;width:300px;height:300px;background:#29d;-webkit-transition:-webkit-transform .3s;transition:transform .3s;-webkit-transform:translateX(100%) translateY(-100%) rotate(45deg);transform:translateX(100%) translateY(-100%) rotate(45deg);pointer-events:none}.pace.pace-active .pace-activity{-webkit-transform:translateX(50%) translateY(-50%) rotate(45deg);transform:translateX(50%) translateY(-50%) rotate(45deg)}.pace .pace-activity::after,.pace .pace-activity::before{-moz-box-sizing:border-box;box-sizing:border-box;position:absolute;bottom:30px;left:50%;display:block;border:5px solid #fff;border-radius:50%;content:''}.pace .pace-activity::before{margin-left:-40px;width:80px;height:80px;border-right-color:rgba(0,0,0,.2);border-left-color:rgba(0,0,0,.2);-webkit-animation:pace-theme-corner-indicator-spin 3s linear infinite;animation:pace-theme-corner-indicator-spin 3s linear infinite}.pace .pace-activity::after{bottom:50px;margin-left:-20px;width:40px;height:40px;border-top-color:rgba(0,0,0,.2);border-bottom-color:rgba(0,0,0,.2);-webkit-animation:pace-theme-corner-indicator-spin 1s linear infinite;animation:pace-theme-corner-indicator-spin 1s linear infinite}@-webkit-keyframes pace-theme-corner-indicator-spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(359deg)}}@keyframes pace-theme-corner-indicator-spin{0%{transform:rotate(0)}100%{transform:rotate(359deg)}}]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/blog/lib/pace/pace-theme-center-simple.min.css</url>
     <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;z-index:2000;position:fixed;margin:auto;top:0;left:0;right:0;bottom:0;height:5px;width:200px;background:#fff;border:1px solid #29d;overflow:hidden}.pace .pace-progress{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);max-width:200px;z-index:2000;display:block;position:absolute;top:0;right:100%;height:100%;width:100%;background:#29d}.pace.pace-inactive{display:none}]]></content>
   </entry>
@@ -1271,11 +1288,6 @@
     <title></title>
     <url>/blog/lib/pace/pace-theme-fill-left.min.css</url>
     <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background-color:rgba(34,153,221,.19999999999999996);position:fixed;z-index:-1;top:0;right:100%;bottom:0;width:100%}]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/blog/lib/pace/pace-theme-corner-indicator.min.css</url>
-    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace .pace-activity{display:block;position:fixed;z-index:2000;top:0;right:0;width:300px;height:300px;background:#29d;-webkit-transition:-webkit-transform .3s;transition:transform .3s;-webkit-transform:translateX(100%) translateY(-100%) rotate(45deg);transform:translateX(100%) translateY(-100%) rotate(45deg);pointer-events:none}.pace.pace-active .pace-activity{-webkit-transform:translateX(50%) translateY(-50%) rotate(45deg);transform:translateX(50%) translateY(-50%) rotate(45deg)}.pace .pace-activity::after,.pace .pace-activity::before{-moz-box-sizing:border-box;box-sizing:border-box;position:absolute;bottom:30px;left:50%;display:block;border:5px solid #fff;border-radius:50%;content:''}.pace .pace-activity::before{margin-left:-40px;width:80px;height:80px;border-right-color:rgba(0,0,0,.2);border-left-color:rgba(0,0,0,.2);-webkit-animation:pace-theme-corner-indicator-spin 3s linear infinite;animation:pace-theme-corner-indicator-spin 3s linear infinite}.pace .pace-activity::after{bottom:50px;margin-left:-20px;width:40px;height:40px;border-top-color:rgba(0,0,0,.2);border-bottom-color:rgba(0,0,0,.2);-webkit-animation:pace-theme-corner-indicator-spin 1s linear infinite;animation:pace-theme-corner-indicator-spin 1s linear infinite}@-webkit-keyframes pace-theme-corner-indicator-spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(359deg)}}@keyframes pace-theme-corner-indicator-spin{0%{transform:rotate(0)}100%{transform:rotate(359deg)}}]]></content>
   </entry>
   <entry>
     <title></title>
@@ -1290,13 +1302,13 @@
   </entry>
   <entry>
     <title></title>
-    <url>/blog/lib/pace/pace-theme-loading-bar.min.css</url>
-    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box;z-index:2000;position:fixed;margin:auto;top:12px;left:0;right:0;bottom:0;width:200px;height:50px;overflow:hidden}.pace .pace-progress{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;-webkit-background-clip:padding-box;-moz-background-clip:padding;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);display:block;position:absolute;right:100%;margin-right:-7px;width:93%;top:7px;height:14px;font-size:12px;background:#29d;color:#29d;line-height:60px;font-weight:700;font-family:Helvetica,Arial,"Lucida Grande",sans-serif;-webkit-box-shadow:120px 0 #fff,240px 0 #fff;-ms-box-shadow:120px 0 #fff,240px 0 #fff;box-shadow:120px 0 #fff,240px 0 #fff}.pace .pace-progress:after{content:attr(data-progress-text);display:inline-block;position:fixed;width:45px;text-align:right;right:0;padding-right:16px;top:4px}.pace .pace-progress[data-progress-text="0%"]:after{right:-200px}.pace .pace-progress[data-progress-text="1%"]:after{right:-198.14px}.pace .pace-progress[data-progress-text="2%"]:after{right:-196.28px}.pace .pace-progress[data-progress-text="3%"]:after{right:-194.42px}.pace .pace-progress[data-progress-text="4%"]:after{right:-192.56px}.pace .pace-progress[data-progress-text="5%"]:after{right:-190.7px}.pace .pace-progress[data-progress-text="6%"]:after{right:-188.84px}.pace .pace-progress[data-progress-text="7%"]:after{right:-186.98px}.pace .pace-progress[data-progress-text="8%"]:after{right:-185.12px}.pace .pace-progress[data-progress-text="9%"]:after{right:-183.26px}.pace .pace-progress[data-progress-text="10%"]:after{right:-181.4px}.pace .pace-progress[data-progress-text="11%"]:after{right:-179.54px}.pace .pace-progress[data-progress-text="12%"]:after{right:-177.68px}.pace .pace-progress[data-progress-text="13%"]:after{right:-175.82px}.pace .pace-progress[data-progress-text="14%"]:after{right:-173.96px}.pace .pace-progress[data-progress-text="15%"]:after{right:-172.1px}.pace .pace-progress[data-progress-text="16%"]:after{right:-170.24px}.pace .pace-progress[data-progress-text="17%"]:after{right:-168.38px}.pace .pace-progress[data-progress-text="18%"]:after{right:-166.52px}.pace .pace-progress[data-progress-text="19%"]:after{right:-164.66px}.pace .pace-progress[data-progress-text="20%"]:after{right:-162.8px}.pace .pace-progress[data-progress-text="21%"]:after{right:-160.94px}.pace .pace-progress[data-progress-text="22%"]:after{right:-159.08px}.pace .pace-progress[data-progress-text="23%"]:after{right:-157.22px}.pace .pace-progress[data-progress-text="24%"]:after{right:-155.36px}.pace .pace-progress[data-progress-text="25%"]:after{right:-153.5px}.pace .pace-progress[data-progress-text="26%"]:after{right:-151.64px}.pace .pace-progress[data-progress-text="27%"]:after{right:-149.78px}.pace .pace-progress[data-progress-text="28%"]:after{right:-147.92px}.pace .pace-progress[data-progress-text="29%"]:after{right:-146.06px}.pace .pace-progress[data-progress-text="30%"]:after{right:-144.2px}.pace .pace-progress[data-progress-text="31%"]:after{right:-142.34px}.pace .pace-progress[data-progress-text="32%"]:after{right:-140.48px}.pace .pace-progress[data-progress-text="33%"]:after{right:-138.62px}.pace .pace-progress[data-progress-text="34%"]:after{right:-136.76px}.pace .pace-progress[data-progress-text="35%"]:after{right:-134.9px}.pace .pace-progress[data-progress-text="36%"]:after{right:-133.04px}.pace .pace-progress[data-progress-text="37%"]:after{right:-131.18px}.pace .pace-progress[data-progress-text="38%"]:after{right:-129.32px}.pace .pace-progress[data-progress-text="39%"]:after{right:-127.46px}.pace .pace-progress[data-progress-text="40%"]:after{right:-125.6px}.pace .pace-progress[data-progress-text="41%"]:after{right:-123.74px}.pace .pace-progress[data-progress-text="42%"]:after{right:-121.88px}.pace .pace-progress[data-progress-text="43%"]:after{right:-120.02px}.pace .pace-progress[data-progress-text="44%"]:after{right:-118.16px}.pace .pace-progress[data-progress-text="45%"]:after{right:-116.3px}.pace .pace-progress[data-progress-text="46%"]:after{right:-114.44px}.pace .pace-progress[data-progress-text="47%"]:after{right:-112.58px}.pace .pace-progress[data-progress-text="48%"]:after{right:-110.72px}.pace .pace-progress[data-progress-text="49%"]:after{right:-108.86px}.pace .pace-progress[data-progress-text="50%"]:after{right:-107px}.pace .pace-progress[data-progress-text="51%"]:after{right:-105.14px}.pace .pace-progress[data-progress-text="52%"]:after{right:-103.28px}.pace .pace-progress[data-progress-text="53%"]:after{right:-101.42px}.pace .pace-progress[data-progress-text="54%"]:after{right:-99.56px}.pace .pace-progress[data-progress-text="55%"]:after{right:-97.7px}.pace .pace-progress[data-progress-text="56%"]:after{right:-95.84px}.pace .pace-progress[data-progress-text="57%"]:after{right:-93.98px}.pace .pace-progress[data-progress-text="58%"]:after{right:-92.12px}.pace .pace-progress[data-progress-text="59%"]:after{right:-90.26px}.pace .pace-progress[data-progress-text="60%"]:after{right:-88.4px}.pace .pace-progress[data-progress-text="61%"]:after{right:-86.54px}.pace .pace-progress[data-progress-text="62%"]:after{right:-84.68px}.pace .pace-progress[data-progress-text="63%"]:after{right:-82.82px}.pace .pace-progress[data-progress-text="64%"]:after{right:-80.96px}.pace .pace-progress[data-progress-text="65%"]:after{right:-79.1px}.pace .pace-progress[data-progress-text="66%"]:after{right:-77.24px}.pace .pace-progress[data-progress-text="67%"]:after{right:-75.38px}.pace .pace-progress[data-progress-text="68%"]:after{right:-73.52px}.pace .pace-progress[data-progress-text="69%"]:after{right:-71.66px}.pace .pace-progress[data-progress-text="70%"]:after{right:-69.8px}.pace .pace-progress[data-progress-text="71%"]:after{right:-67.94px}.pace .pace-progress[data-progress-text="72%"]:after{right:-66.08px}.pace .pace-progress[data-progress-text="73%"]:after{right:-64.22px}.pace .pace-progress[data-progress-text="74%"]:after{right:-62.36px}.pace .pace-progress[data-progress-text="75%"]:after{right:-60.5px}.pace .pace-progress[data-progress-text="76%"]:after{right:-58.64px}.pace .pace-progress[data-progress-text="77%"]:after{right:-56.78px}.pace .pace-progress[data-progress-text="78%"]:after{right:-54.92px}.pace .pace-progress[data-progress-text="79%"]:after{right:-53.06px}.pace .pace-progress[data-progress-text="80%"]:after{right:-51.2px}.pace .pace-progress[data-progress-text="81%"]:after{right:-49.34px}.pace .pace-progress[data-progress-text="82%"]:after{right:-47.48px}.pace .pace-progress[data-progress-text="83%"]:after{right:-45.62px}.pace .pace-progress[data-progress-text="84%"]:after{right:-43.76px}.pace .pace-progress[data-progress-text="85%"]:after{right:-41.9px}.pace .pace-progress[data-progress-text="86%"]:after{right:-40.04px}.pace .pace-progress[data-progress-text="87%"]:after{right:-38.18px}.pace .pace-progress[data-progress-text="88%"]:after{right:-36.32px}.pace .pace-progress[data-progress-text="89%"]:after{right:-34.46px}.pace .pace-progress[data-progress-text="90%"]:after{right:-32.6px}.pace .pace-progress[data-progress-text="91%"]:after{right:-30.74px}.pace .pace-progress[data-progress-text="92%"]:after{right:-28.88px}.pace .pace-progress[data-progress-text="93%"]:after{right:-27.02px}.pace .pace-progress[data-progress-text="94%"]:after{right:-25.16px}.pace .pace-progress[data-progress-text="95%"]:after{right:-23.3px}.pace .pace-progress[data-progress-text="96%"]:after{right:-21.44px}.pace .pace-progress[data-progress-text="97%"]:after{right:-19.58px}.pace .pace-progress[data-progress-text="98%"]:after{right:-17.72px}.pace .pace-progress[data-progress-text="99%"]:after{right:-15.86px}.pace .pace-progress[data-progress-text="100%"]:after{right:-14px}.pace .pace-activity{position:absolute;width:100%;height:28px;z-index:2001;box-shadow:inset 0 0 0 2px #29d,inset 0 0 0 7px #FFF;border-radius:10px}.pace.pace-inactive{display:none}]]></content>
+    <url>/blog/lib/pace/pace-theme-mac-osx.min.css</url>
+    <content><![CDATA[.pace,.pace .pace-progress{width:100%;height:12px;overflow:hidden}.pace,.pace .pace-activity{position:fixed;top:0;left:0}.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;z-index:2000;background:#fff}.pace-inactive{display:none}.pace .pace-progress{background-color:#0087E1;position:fixed;top:0;right:100%;-webkit-border-radius:0 0 4px;-moz-border-radius:0 0 4px;-o-border-radius:0 0 4px;border-radius:0 0 4px;-webkit-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);-moz-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);-o-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3)}.pace .pace-activity{right:-28px;bottom:0;-webkit-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-moz-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-o-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-webkit-background-size:28px 100%;-moz-background-size:28px 100%;-o-background-size:28px 100%;background-size:28px 100%;-webkit-animation:pace-theme-mac-osx-motion .5s linear infinite;-moz-animation:pace-theme-mac-osx-motion .5s linear infinite;-ms-animation:pace-theme-mac-osx-motion .5s linear infinite;-o-animation:pace-theme-mac-osx-motion .5s linear infinite;animation:pace-theme-mac-osx-motion .5s linear infinite}@-webkit-keyframes pace-theme-mac-osx-motion{0%{-webkit-transform:none;transform:none}100%{-webkit-transform:translate(-28px,0);transform:translate(-28px,0)}}@-moz-keyframes pace-theme-mac-osx-motion{0%{-moz-transform:none;transform:none}100%{-moz-transform:translate(-28px,0);transform:translate(-28px,0)}}@-o-keyframes pace-theme-mac-osx-motion{0%{-o-transform:none;transform:none}100%{-o-transform:translate(-28px,0);transform:translate(-28px,0)}}@-ms-keyframes pace-theme-mac-osx-motion{0%{-ms-transform:none;transform:none}100%{-ms-transform:translate(-28px,0);transform:translate(-28px,0)}}@keyframes pace-theme-mac-osx-motion{0%{transform:none}100%{transform:translate(-28px,0)}}]]></content>
   </entry>
   <entry>
     <title></title>
-    <url>/blog/lib/pace/pace-theme-mac-osx.min.css</url>
-    <content><![CDATA[.pace,.pace .pace-progress{width:100%;height:12px;overflow:hidden}.pace,.pace .pace-activity{position:fixed;top:0;left:0}.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;z-index:2000;background:#fff}.pace-inactive{display:none}.pace .pace-progress{background-color:#0087E1;position:fixed;top:0;right:100%;-webkit-border-radius:0 0 4px;-moz-border-radius:0 0 4px;-o-border-radius:0 0 4px;border-radius:0 0 4px;-webkit-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);-moz-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);-o-box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3);box-shadow:inset -1px 0 #00558F,inset 0 -1px #00558F,inset 0 2px rgba(255,255,255,.5),inset 0 6px rgba(255,255,255,.3)}.pace .pace-activity{right:-28px;bottom:0;-webkit-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-moz-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-o-background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);background-image:radial-gradient(rgba(255,255,255,.65) 0,rgba(255,255,255,.15) 100%);-webkit-background-size:28px 100%;-moz-background-size:28px 100%;-o-background-size:28px 100%;background-size:28px 100%;-webkit-animation:pace-theme-mac-osx-motion .5s linear infinite;-moz-animation:pace-theme-mac-osx-motion .5s linear infinite;-ms-animation:pace-theme-mac-osx-motion .5s linear infinite;-o-animation:pace-theme-mac-osx-motion .5s linear infinite;animation:pace-theme-mac-osx-motion .5s linear infinite}@-webkit-keyframes pace-theme-mac-osx-motion{0%{-webkit-transform:none;transform:none}100%{-webkit-transform:translate(-28px,0);transform:translate(-28px,0)}}@-moz-keyframes pace-theme-mac-osx-motion{0%{-moz-transform:none;transform:none}100%{-moz-transform:translate(-28px,0);transform:translate(-28px,0)}}@-o-keyframes pace-theme-mac-osx-motion{0%{-o-transform:none;transform:none}100%{-o-transform:translate(-28px,0);transform:translate(-28px,0)}}@-ms-keyframes pace-theme-mac-osx-motion{0%{-ms-transform:none;transform:none}100%{-ms-transform:translate(-28px,0);transform:translate(-28px,0)}}@keyframes pace-theme-mac-osx-motion{0%{transform:none}100%{transform:translate(-28px,0)}}]]></content>
+    <url>/blog/lib/pace/pace-theme-loading-bar.min.css</url>
+    <content><![CDATA[.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box;z-index:2000;position:fixed;margin:auto;top:12px;left:0;right:0;bottom:0;width:200px;height:50px;overflow:hidden}.pace .pace-progress{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;-webkit-background-clip:padding-box;-moz-background-clip:padding;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);display:block;position:absolute;right:100%;margin-right:-7px;width:93%;top:7px;height:14px;font-size:12px;background:#29d;color:#29d;line-height:60px;font-weight:700;font-family:Helvetica,Arial,"Lucida Grande",sans-serif;-webkit-box-shadow:120px 0 #fff,240px 0 #fff;-ms-box-shadow:120px 0 #fff,240px 0 #fff;box-shadow:120px 0 #fff,240px 0 #fff}.pace .pace-progress:after{content:attr(data-progress-text);display:inline-block;position:fixed;width:45px;text-align:right;right:0;padding-right:16px;top:4px}.pace .pace-progress[data-progress-text="0%"]:after{right:-200px}.pace .pace-progress[data-progress-text="1%"]:after{right:-198.14px}.pace .pace-progress[data-progress-text="2%"]:after{right:-196.28px}.pace .pace-progress[data-progress-text="3%"]:after{right:-194.42px}.pace .pace-progress[data-progress-text="4%"]:after{right:-192.56px}.pace .pace-progress[data-progress-text="5%"]:after{right:-190.7px}.pace .pace-progress[data-progress-text="6%"]:after{right:-188.84px}.pace .pace-progress[data-progress-text="7%"]:after{right:-186.98px}.pace .pace-progress[data-progress-text="8%"]:after{right:-185.12px}.pace .pace-progress[data-progress-text="9%"]:after{right:-183.26px}.pace .pace-progress[data-progress-text="10%"]:after{right:-181.4px}.pace .pace-progress[data-progress-text="11%"]:after{right:-179.54px}.pace .pace-progress[data-progress-text="12%"]:after{right:-177.68px}.pace .pace-progress[data-progress-text="13%"]:after{right:-175.82px}.pace .pace-progress[data-progress-text="14%"]:after{right:-173.96px}.pace .pace-progress[data-progress-text="15%"]:after{right:-172.1px}.pace .pace-progress[data-progress-text="16%"]:after{right:-170.24px}.pace .pace-progress[data-progress-text="17%"]:after{right:-168.38px}.pace .pace-progress[data-progress-text="18%"]:after{right:-166.52px}.pace .pace-progress[data-progress-text="19%"]:after{right:-164.66px}.pace .pace-progress[data-progress-text="20%"]:after{right:-162.8px}.pace .pace-progress[data-progress-text="21%"]:after{right:-160.94px}.pace .pace-progress[data-progress-text="22%"]:after{right:-159.08px}.pace .pace-progress[data-progress-text="23%"]:after{right:-157.22px}.pace .pace-progress[data-progress-text="24%"]:after{right:-155.36px}.pace .pace-progress[data-progress-text="25%"]:after{right:-153.5px}.pace .pace-progress[data-progress-text="26%"]:after{right:-151.64px}.pace .pace-progress[data-progress-text="27%"]:after{right:-149.78px}.pace .pace-progress[data-progress-text="28%"]:after{right:-147.92px}.pace .pace-progress[data-progress-text="29%"]:after{right:-146.06px}.pace .pace-progress[data-progress-text="30%"]:after{right:-144.2px}.pace .pace-progress[data-progress-text="31%"]:after{right:-142.34px}.pace .pace-progress[data-progress-text="32%"]:after{right:-140.48px}.pace .pace-progress[data-progress-text="33%"]:after{right:-138.62px}.pace .pace-progress[data-progress-text="34%"]:after{right:-136.76px}.pace .pace-progress[data-progress-text="35%"]:after{right:-134.9px}.pace .pace-progress[data-progress-text="36%"]:after{right:-133.04px}.pace .pace-progress[data-progress-text="37%"]:after{right:-131.18px}.pace .pace-progress[data-progress-text="38%"]:after{right:-129.32px}.pace .pace-progress[data-progress-text="39%"]:after{right:-127.46px}.pace .pace-progress[data-progress-text="40%"]:after{right:-125.6px}.pace .pace-progress[data-progress-text="41%"]:after{right:-123.74px}.pace .pace-progress[data-progress-text="42%"]:after{right:-121.88px}.pace .pace-progress[data-progress-text="43%"]:after{right:-120.02px}.pace .pace-progress[data-progress-text="44%"]:after{right:-118.16px}.pace .pace-progress[data-progress-text="45%"]:after{right:-116.3px}.pace .pace-progress[data-progress-text="46%"]:after{right:-114.44px}.pace .pace-progress[data-progress-text="47%"]:after{right:-112.58px}.pace .pace-progress[data-progress-text="48%"]:after{right:-110.72px}.pace .pace-progress[data-progress-text="49%"]:after{right:-108.86px}.pace .pace-progress[data-progress-text="50%"]:after{right:-107px}.pace .pace-progress[data-progress-text="51%"]:after{right:-105.14px}.pace .pace-progress[data-progress-text="52%"]:after{right:-103.28px}.pace .pace-progress[data-progress-text="53%"]:after{right:-101.42px}.pace .pace-progress[data-progress-text="54%"]:after{right:-99.56px}.pace .pace-progress[data-progress-text="55%"]:after{right:-97.7px}.pace .pace-progress[data-progress-text="56%"]:after{right:-95.84px}.pace .pace-progress[data-progress-text="57%"]:after{right:-93.98px}.pace .pace-progress[data-progress-text="58%"]:after{right:-92.12px}.pace .pace-progress[data-progress-text="59%"]:after{right:-90.26px}.pace .pace-progress[data-progress-text="60%"]:after{right:-88.4px}.pace .pace-progress[data-progress-text="61%"]:after{right:-86.54px}.pace .pace-progress[data-progress-text="62%"]:after{right:-84.68px}.pace .pace-progress[data-progress-text="63%"]:after{right:-82.82px}.pace .pace-progress[data-progress-text="64%"]:after{right:-80.96px}.pace .pace-progress[data-progress-text="65%"]:after{right:-79.1px}.pace .pace-progress[data-progress-text="66%"]:after{right:-77.24px}.pace .pace-progress[data-progress-text="67%"]:after{right:-75.38px}.pace .pace-progress[data-progress-text="68%"]:after{right:-73.52px}.pace .pace-progress[data-progress-text="69%"]:after{right:-71.66px}.pace .pace-progress[data-progress-text="70%"]:after{right:-69.8px}.pace .pace-progress[data-progress-text="71%"]:after{right:-67.94px}.pace .pace-progress[data-progress-text="72%"]:after{right:-66.08px}.pace .pace-progress[data-progress-text="73%"]:after{right:-64.22px}.pace .pace-progress[data-progress-text="74%"]:after{right:-62.36px}.pace .pace-progress[data-progress-text="75%"]:after{right:-60.5px}.pace .pace-progress[data-progress-text="76%"]:after{right:-58.64px}.pace .pace-progress[data-progress-text="77%"]:after{right:-56.78px}.pace .pace-progress[data-progress-text="78%"]:after{right:-54.92px}.pace .pace-progress[data-progress-text="79%"]:after{right:-53.06px}.pace .pace-progress[data-progress-text="80%"]:after{right:-51.2px}.pace .pace-progress[data-progress-text="81%"]:after{right:-49.34px}.pace .pace-progress[data-progress-text="82%"]:after{right:-47.48px}.pace .pace-progress[data-progress-text="83%"]:after{right:-45.62px}.pace .pace-progress[data-progress-text="84%"]:after{right:-43.76px}.pace .pace-progress[data-progress-text="85%"]:after{right:-41.9px}.pace .pace-progress[data-progress-text="86%"]:after{right:-40.04px}.pace .pace-progress[data-progress-text="87%"]:after{right:-38.18px}.pace .pace-progress[data-progress-text="88%"]:after{right:-36.32px}.pace .pace-progress[data-progress-text="89%"]:after{right:-34.46px}.pace .pace-progress[data-progress-text="90%"]:after{right:-32.6px}.pace .pace-progress[data-progress-text="91%"]:after{right:-30.74px}.pace .pace-progress[data-progress-text="92%"]:after{right:-28.88px}.pace .pace-progress[data-progress-text="93%"]:after{right:-27.02px}.pace .pace-progress[data-progress-text="94%"]:after{right:-25.16px}.pace .pace-progress[data-progress-text="95%"]:after{right:-23.3px}.pace .pace-progress[data-progress-text="96%"]:after{right:-21.44px}.pace .pace-progress[data-progress-text="97%"]:after{right:-19.58px}.pace .pace-progress[data-progress-text="98%"]:after{right:-17.72px}.pace .pace-progress[data-progress-text="99%"]:after{right:-15.86px}.pace .pace-progress[data-progress-text="100%"]:after{right:-14px}.pace .pace-activity{position:absolute;width:100%;height:28px;z-index:2001;box-shadow:inset 0 0 0 2px #29d,inset 0 0 0 7px #FFF;border-radius:10px}.pace.pace-inactive{display:none}]]></content>
   </entry>
   <entry>
     <title></title>
@@ -11432,17 +11444,5 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }]]></content>
-  </entry>
-  <entry>
-    <title>每周刷题记录</title>
-    <url>/blog/exercise-record/index.html</url>
-    <content><![CDATA[<h3 id="2021-3-21"><a href="#2021-3-21" class="headerlink" title="2021.3.21"></a>2021.3.21</h3><p>树状数组：leetcode-1649 通过指令创建有序数组</p>
-<p>树状数组：UVALive-4329 Ping pong</p>
-<p>模拟：leetcode-59 螺旋矩阵Ⅱ</p>
-<p>动态规划：WHUOJ-2768 方格取数</p>
-<p>dfs: WHUOJ-2657 岛屿面积有多大</p>
-<p>dfs: leetcode-695 岛屿的最大面积</p>
-<p>链表：leetcode-92 反转链表Ⅱ</p>
-]]></content>
   </entry>
 </search>
