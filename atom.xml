@@ -6,7 +6,7 @@
   <link href="https://maple-pro.github.io/blog/atom.xml" rel="self"/>
   
   <link href="https://maple-pro.github.io/blog/"/>
-  <updated>2021-03-17T06:57:54.153Z</updated>
+  <updated>2021-03-20T06:15:16.110Z</updated>
   <id>https://maple-pro.github.io/blog/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AutoCAD .NET: Dynamic Block</title>
+    <link href="https://maple-pro.github.io/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/"/>
+    <id>https://maple-pro.github.io/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/</id>
+    <published>2021-03-20T05:57:09.000Z</published>
+    <updated>2021-03-20T06:15:16.110Z</updated>
+    
+    
+    <summary type="html">AutoCAD二次开发：如何使用.NET来生成和获取AutoCAD中的动态块</summary>
+    
+    
+    
+    <category term="AutoCAD二次开发" scheme="https://maple-pro.github.io/blog/categories/AutoCAD%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="动态块" scheme="https://maple-pro.github.io/blog/tags/%E5%8A%A8%E6%80%81%E5%9D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>云计算：3. 容器</title>
@@ -42,7 +61,7 @@
     <link href="https://maple-pro.github.io/blog/2021/03/16/%E7%AE%97%E6%B3%95%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
     <id>https://maple-pro.github.io/blog/2021/03/16/%E7%AE%97%E6%B3%95%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91/</id>
     <published>2021-03-16T12:37:19.000Z</published>
-    <updated>2021-03-17T04:52:18.358Z</updated>
+    <updated>2021-03-20T06:08:29.993Z</updated>
     
     
     <summary type="html">介绍线段树的原理、代码实现和相应例题。参考《算法竞赛入门经典 训练指南》等资料。</summary>
@@ -84,7 +103,7 @@
     <link href="https://maple-pro.github.io/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/"/>
     <id>https://maple-pro.github.io/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/</id>
     <published>2021-03-15T11:58:36.000Z</published>
-    <updated>2021-03-17T04:05:10.031Z</updated>
+    <updated>2021-03-20T06:06:44.786Z</updated>
     
     
     <summary type="html">介绍树状数组的原理、代码实现和相应例题。参考《算法竞赛入门经典 训练指南》</summary>
