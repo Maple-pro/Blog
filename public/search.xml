@@ -1243,6 +1243,52 @@
       </tags>
   </entry>
   <entry>
+    <title>云计算：4. BigTable</title>
+    <url>/blog/2021/03/31/CloudComputing-4/</url>
+    <content><![CDATA[<h1 id="云计算：4-BigTable"><a href="#云计算：4-BigTable" class="headerlink" title="云计算：4. BigTable"></a>云计算：4. BigTable</h1><h2 id="1-数据模型"><a href="#1-数据模型" class="headerlink" title="1. 数据模型"></a>1. 数据模型</h2><p><strong>Bigtable数据的存储格式：</strong></p>
+<p>Bigtable是一个分布式多维映射表，表中的数据通过一个行关键字（Row Key）、一个列关键字（Column Key）以及一个时间戳（Time Stamp）进行索引。</p>
+<p>Bigtable的存储逻辑可以表示为：<code>(row:string, column:string, time:int64)→string</code></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>云计算</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Computer Network: 1. The Internet and IP</title>
+    <url>/blog/2021/04/03/Computer-Network-1-The-Internet-and-IP/</url>
+    <content><![CDATA[<h1 id="1-5-Packet-Switching-Principle"><a href="#1-5-Packet-Switching-Principle" class="headerlink" title="1.5 Packet Switching Principle"></a>1.5 Packet Switching Principle</h1>]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>Computer Network</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>树和二叉树刷题</title>
+    <url>/blog/2021/04/01/%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B7%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="A-Dropping-Balls"><a href="#A-Dropping-Balls" class="headerlink" title="A. Dropping Balls"></a>A. Dropping Balls</h2><blockquote>
+<p>uva-122</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// uva-679</span></span><br><span class="line"><span class="comment">// 树 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> l; <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;l);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= l; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> D, I;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;D, &amp;I);</span><br><span class="line">		<span class="keyword">int</span> k = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= D<span class="number">-1</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (I % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">				I = (I + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">				k = k &lt;&lt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				I = I / <span class="number">2</span>;</span><br><span class="line">				k = k &lt;&lt; <span class="number">1</span> | <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, k);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> end; <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;end);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Tree"><a href="#C-Tree" class="headerlink" title="C. Tree"></a>C. Tree</h2><blockquote>
+<p>uva-548</p>
+</blockquote>
+<p>数组构建二叉树，dfs遍历二叉树。涉及<code>StringStream</code>的使用。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>树</tag>
+        <tag>二叉树</tag>
+        <tag>dfs</tag>
+        <tag>StringStream</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>All categories</title>
     <url>/blog/categories/index.html</url>
     <content><![CDATA[]]></content>
@@ -1250,12 +1296,23 @@
   <entry>
     <title>每周刷题记录</title>
     <url>/blog/exercise-record/index.html</url>
-    <content><![CDATA[<h3 id="2021-3-28"><a href="#2021-3-28" class="headerlink" title="2021.3.28"></a>2021.3.28</h3><p>分治：POJ-1723 SOLDIERS</p>
+    <content><![CDATA[<h3 id="2021-4-4"><a href="#2021-4-4" class="headerlink" title="2021.4.4"></a>2021.4.4</h3><p>模拟：leetcode-190 颠倒二进制位</p>
+<p>树和二叉树：uva-548 Tree</p>
+<h3 id="2021-3-28"><a href="#2021-3-28" class="headerlink" title="2021.3.28"></a>2021.3.28</h3><p>分治：POJ-1723 SOLDIERS</p>
 <p>动态规划：luogu-2285 打鼹鼠</p>
 <p>dfs: leetcode-341 扁平化嵌套列表迭代器</p>
 <p>单调栈：leetcode-456 132模式</p>
 <p>优先队列，贪心：leetcode-1353 最多可以参加的会议数目</p>
 <p>线段树：CCF认证-202012-5 星际旅行</p>
+<p>链表：leetcode-82 删除排序链表中的重复元素Ⅱ</p>
+<p>vjudge: 背包九讲</p>
+<p>​        01背包：hdu-2602 Bone Collector</p>
+<p>​        01背包：hdu-2995 Robberies</p>
+<p>​        01背包：Codeforces-366C Dima and Salad</p>
+<p>​        完全背包：hdu-1114 Piggy-Bank</p>
+<p>链表：leetcode-83 删除排序链表中的重复元素</p>
+<p>二叉树：uva-679 Drapping Balls</p>
+<p>二叉树，链表：leetcode-173 二叉搜索树迭代器</p>
 <h3 id="2021-3-21"><a href="#2021-3-21" class="headerlink" title="2021.3.21"></a>2021.3.21</h3><p>树状数组：leetcode-1649 通过指令创建有序数组</p>
 <p>树状数组：UVALive-4329 Ping pong</p>
 <p>模拟：leetcode-59 螺旋矩阵Ⅱ</p>
