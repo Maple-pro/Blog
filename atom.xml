@@ -6,7 +6,7 @@
   <link href="https://blog.maples31.com/blog/atom.xml" rel="self"/>
   
   <link href="https://blog.maples31.com/blog/"/>
-  <updated>2021-04-04T04:14:58.098Z</updated>
+  <updated>2021-04-08T07:44:01.674Z</updated>
   <id>https://blog.maples31.com/blog/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CS144: 2. Transport</title>
+    <link href="https://blog.maples31.com/blog/2021/04/08/CS144-2-Transport/"/>
+    <id>https://blog.maples31.com/blog/2021/04/08/CS144-2-Transport/</id>
+    <published>2021-04-08T07:43:05.000Z</published>
+    <updated>2021-04-08T07:44:01.674Z</updated>
+    
+    
+    
+    
+    <category term="学习笔记" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="CS144" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/CS144/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CS144: 1. Internet and IP</title>
+    <link href="https://blog.maples31.com/blog/2021/04/08/CS144-1-Internet-and-IP/"/>
+    <id>https://blog.maples31.com/blog/2021/04/08/CS144-1-Internet-and-IP/</id>
+    <published>2021-04-08T07:42:50.000Z</published>
+    <updated>2021-04-08T07:43:53.934Z</updated>
+    
+    
+    
+    
+    <category term="学习笔记" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="CS144" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/CS144/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>云计算：5. 分布式锁服务Chubby</title>
+    <link href="https://blog.maples31.com/blog/2021/04/07/CloudComputing-5/"/>
+    <id>https://blog.maples31.com/blog/2021/04/07/CloudComputing-5/</id>
+    <published>2021-04-07T06:09:36.000Z</published>
+    <updated>2021-04-07T08:00:54.451Z</updated>
+    
+    
+    <summary type="html">介绍google的分布式锁服务---Chubby</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="云计算" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>并查集刷题</title>
@@ -36,11 +89,11 @@
   </entry>
   
   <entry>
-    <title>Computer Network: 1. The Internet and IP</title>
+    <title>Computer Network: 1. Computer Networks and the Internet</title>
     <link href="https://blog.maples31.com/blog/2021/04/03/Computer-Network-1-The-Internet-and-IP/"/>
     <id>https://blog.maples31.com/blog/2021/04/03/Computer-Network-1-The-Internet-and-IP/</id>
     <published>2021-04-03T06:26:17.000Z</published>
-    <updated>2021-04-03T06:30:31.408Z</updated>
+    <updated>2021-04-06T06:20:21.677Z</updated>
     
     
     <summary type="html">Introduce the basic of how the Internet works, and basic architectural ideas and principles.</summary>
@@ -132,7 +185,7 @@
     <link href="https://blog.maples31.com/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/"/>
     <id>https://blog.maples31.com/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/</id>
     <published>2021-03-20T05:57:09.000Z</published>
-    <updated>2021-03-20T11:06:00.028Z</updated>
+    <updated>2021-04-07T07:12:18.889Z</updated>
     
     
     <summary type="html">AutoCAD二次开发：如何使用.NET来生成和获取AutoCAD中的动态块</summary>
@@ -151,7 +204,7 @@
     <link href="https://blog.maples31.com/blog/2021/03/17/CloudComputing-3/"/>
     <id>https://blog.maples31.com/blog/2021/03/17/CloudComputing-3/</id>
     <published>2021-03-17T06:12:43.000Z</published>
-    <updated>2021-03-24T06:56:02.413Z</updated>
+    <updated>2021-04-07T06:20:40.108Z</updated>
     
     
     <summary type="html">介绍云计算和大数据</summary>
@@ -163,7 +216,7 @@
     <category term="云计算" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
     
-    <category term="容器" scheme="https://blog.maples31.com/blog/tags/%E5%AE%B9%E5%99%A8/"/>
+    <category term="docker" scheme="https://blog.maples31.com/blog/tags/docker/"/>
     
   </entry>
   
@@ -172,7 +225,7 @@
     <link href="https://blog.maples31.com/blog/2021/03/16/%E7%AE%97%E6%B3%95%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
     <id>https://blog.maples31.com/blog/2021/03/16/%E7%AE%97%E6%B3%95%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91/</id>
     <published>2021-03-16T12:37:19.000Z</published>
-    <updated>2021-03-25T03:16:12.581Z</updated>
+    <updated>2021-04-07T07:11:36.550Z</updated>
     
     
     <summary type="html">介绍线段树的原理、代码实现和相应例题。参考《算法竞赛入门经典 训练指南》等资料。</summary>
@@ -214,7 +267,7 @@
     <link href="https://blog.maples31.com/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/"/>
     <id>https://blog.maples31.com/blog/2021/03/15/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%EF%BC%88Binary-Indexed-Tree%EF%BC%89/</id>
     <published>2021-03-15T11:58:36.000Z</published>
-    <updated>2021-03-20T06:06:44.786Z</updated>
+    <updated>2021-04-07T07:11:46.944Z</updated>
     
     
     <summary type="html">介绍树状数组的原理、代码实现和相应例题。参考《算法竞赛入门经典 训练指南》</summary>
@@ -354,61 +407,6 @@
     
     <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Edu Codeforces R 90 (Div.2)</title>
-    <link href="https://blog.maples31.com/blog/2021/03/13/Edu%20CF%20R%2090%20(Div.2)/"/>
-    <id>https://blog.maples31.com/blog/2021/03/13/Edu%20CF%20R%2090%20(Div.2)/</id>
-    <published>2021-03-13T11:20:36.000Z</published>
-    <updated>2021-03-14T15:40:23.816Z</updated>
-    
-    
-    <summary type="html">Educational Codeforces Round 90, div.2</summary>
-    
-    
-    
-    <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>武汉大学新生寒假集训---Day5</title>
-    <link href="https://blog.maples31.com/blog/2021/03/13/%E6%AD%A6%E6%B1%89%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E5%AF%92%E5%81%87%E9%9B%86%E8%AE%AD---Day5/"/>
-    <id>https://blog.maples31.com/blog/2021/03/13/%E6%AD%A6%E6%B1%89%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E5%AF%92%E5%81%87%E9%9B%86%E8%AE%AD---Day5/</id>
-    <published>2021-03-13T11:16:36.000Z</published>
-    <updated>2021-03-14T15:19:06.295Z</updated>
-    
-    
-    <summary type="html">Editorial for training in WHU, day 5.</summary>
-    
-    
-    
-    <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Java学习：4. Array and Collection</title>
-    <link href="https://blog.maples31.com/blog/2021/03/13/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A4.%20Array%20and%20Collection/"/>
-    <id>https://blog.maples31.com/blog/2021/03/13/Java%E5%AD%A6%E4%B9%A0%EF%BC%9A4.%20Array%20and%20Collection/</id>
-    <published>2021-03-13T11:14:36.000Z</published>
-    <updated>2021-03-15T08:46:05.389Z</updated>
-    
-    
-    <summary type="html">Introduce the array and collection in java.</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="Java" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Java/"/>
-    
-    
-    <category term="Java" scheme="https://blog.maples31.com/blog/tags/Java/"/>
     
   </entry>
   
