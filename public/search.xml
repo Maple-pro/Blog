@@ -1611,6 +1611,42 @@
       </tags>
   </entry>
   <entry>
+    <title>算法：Dijkstra算法</title>
+    <url>/blog/2021/04/13/%E7%AE%97%E6%B3%95%EF%BC%9ADijkstra%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>当涉及到比较复杂的第二标尺第三标尺时，可以采用Dijkstra + DFS的模板。</p>
+<p>即，现在Dijkstra算法中记录下所有最短路径（只考虑距离），然后从这些最短路径中选出一条第二标尺最优的路径（通过DFS）。</p>
+<ol>
+<li>使用Dijkstra算法记录所有最短路径</li>
+</ol>
+<p>注意：</p>
+<ul>
+<li>找到更优的前驱时，清空<code>pre[v]</code></li>
+<li>找到相同距离的路径时，不用清空<code>pre[v]</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// d[maxv]存储每个节点到起点的最短路径</span></span><br><span class="line"><span class="comment">// G[maxv][maxv]存储整个图</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[maxv];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> <span class="comment">// s为起点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fill(d, d + maxv, INF);</span><br><span class="line">    d[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">-1</span>, MIN = INF;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!vis[j] &amp;&amp; d[j] &lt; MIN) &#123;</span><br><span class="line">                u = <span class="number">-1</span>;</span><br><span class="line">                MIN = d[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (u == <span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!vis[v] &amp;&amp; G[u][v] != INF) &#123;</span><br><span class="line">                <span class="keyword">if</span> (G[u][v] + d[u] &lt; d[v]) &#123;</span><br><span class="line">                    d[v] = d[u] + G[u][v];</span><br><span class="line">                    pre[v].clear();</span><br><span class="line">                    pre[v].push_back(u);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (G[u][v] + d[u] == d[v]) &#123;</span><br><span class="line">                    pre[v].push_back(u);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>遍历所有最短路径，找出一条使第二标尺最优的路径</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 作为全局变量的第二标尺最优质optValue</span></span><br><span class="line"><span class="comment">// 记录最优路径的数组path（使用vector）</span></span><br><span class="line"><span class="comment">// 临时记录DFS遍历到叶子节点时的路径tmpPath（使用vector）</span></span><br><span class="line"><span class="comment">// st为起始节点</span></span><br><span class="line"><span class="keyword">int</span> optValue;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[maxv];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tmpPath;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">// v为当前访问节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (v == st) &#123;</span><br><span class="line">        tmpPath.push_back(v);</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 计算路径中tmpPath上的value值</span></span><br><span class="line">        <span class="keyword">if</span> (value 优于 optValue) &#123;</span><br><span class="line">            optValue = value;</span><br><span class="line">            path = tmpPath;</span><br><span class="line">        &#125;</span><br><span class="line">        tmpPath.pop_back();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    tmpPath.push_back(v);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pre[b].size(); i++) &#123;</span><br><span class="line">        DFS(pre[b][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    tmpPath.pop_back(); <span class="comment">// 遍历完所有前驱节点，将当前节点v删除</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>计算路径中<code>tmpPath</code>上的<code>value</code>值（以计算边权和和点权和为例）：</p>
+<blockquote>
+<p> 注意要倒序访问节点</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 边权和</span></span><br><span class="line"><span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = tmpPath.size() - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">int</span> id = tmpPath[i];</span><br><span class="line">    <span class="keyword">int</span> next = tmpPath[i - <span class="number">1</span>];</span><br><span class="line">    value += V[id][idNext];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点权和</span></span><br><span class="line"><span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = tmpPath.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">int</span> id = tmpPath[i];</span><br><span class="line">    value += W[id];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>dfs</tag>
+        <tag>图</tag>
+        <tag>最短路</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>All categories</title>
     <url>/blog/categories/index.html</url>
     <content><![CDATA[]]></content>
@@ -1618,46 +1654,96 @@
   <entry>
     <title>每周刷题记录</title>
     <url>/blog/exercise-record/index.html</url>
-    <content><![CDATA[<h3 id="2021-4-18"><a href="#2021-4-18" class="headerlink" title="2021.4.18"></a>2021.4.18</h3><p>图，dfs：PAT-1034 Head of a Gang</p>
-<p>图，bfs：PAT-1076 Forwards on Weibo</p>
-<h3 id="2021-4-11"><a href="#2021-4-11" class="headerlink" title="2021.4.11"></a>2021.4.11</h3><p>贪心：POJ-1700 Crossing River</p>
-<p>水题：CCF-202012-1 期末预测之安全指数</p>
-<p>排序：CCF-202012-2 期末预测之最佳阈值</p>
-<p>大模拟：CCF-202012-3 带配额的文件系统</p>
-<p>二叉树，bfs：PAT-A1020 Tree Traversals</p>
-<p>树，dfs：PAT-A1053 Path of Equal Weight</p>
-<p>二叉搜索树：PAT-1043 Is It a Binary Search Tree</p>
-<h3 id="2021-4-4"><a href="#2021-4-4" class="headerlink" title="2021.4.4"></a>2021.4.4</h3><p>模拟：leetcode-190 颠倒二进制位</p>
-<p>vjudge: 树和二叉树</p>
-<p>​        树和二叉树：uva-548 Tree</p>
-<p>​        树，递归：uva-839 Not so Mobile</p>
-<p>​        树：uva-699 The Falling Leaves</p>
-<p>​        树，dfs：uva-297 Quadtrees</p>
-<p>vjudge: 并查集</p>
-<p>​        uva-1665 Islands</p>
-<h3 id="2021-3-28"><a href="#2021-3-28" class="headerlink" title="2021.3.28"></a>2021.3.28</h3><p>分治：POJ-1723 SOLDIERS</p>
-<p>动态规划：luogu-2285 打鼹鼠</p>
-<p>dfs: leetcode-341 扁平化嵌套列表迭代器</p>
-<p>单调栈：leetcode-456 132模式</p>
-<p>优先队列，贪心：leetcode-1353 最多可以参加的会议数目</p>
-<p>线段树：CCF认证-202012-5 星际旅行</p>
-<p>链表：leetcode-82 删除排序链表中的重复元素Ⅱ</p>
-<p>vjudge: 背包九讲</p>
-<p>​        01背包：hdu-2602 Bone Collector</p>
-<p>​        01背包：hdu-2995 Robberies</p>
-<p>​        01背包：Codeforces-366C Dima and Salad</p>
-<p>​        完全背包：hdu-1114 Piggy-Bank</p>
-<p>链表：leetcode-83 删除排序链表中的重复元素</p>
-<p>二叉树：uva-679 Drapping Balls</p>
-<p>二叉树，链表：leetcode-173 二叉搜索树迭代器</p>
-<h3 id="2021-3-21"><a href="#2021-3-21" class="headerlink" title="2021.3.21"></a>2021.3.21</h3><p>树状数组：leetcode-1649 通过指令创建有序数组</p>
-<p>树状数组：UVALive-4329 Ping pong</p>
-<p>模拟：leetcode-59 螺旋矩阵Ⅱ</p>
-<p>动态规划：WHUOJ-2768 方格取数</p>
-<p>dfs: WHUOJ-2657 岛屿面积有多大</p>
-<p>dfs: leetcode-695 岛屿的最大面积</p>
-<p>链表：leetcode-92 反转链表Ⅱ</p>
-<p>排序：leetcode-56 合并区间</p>
+    <content><![CDATA[<h3 id="2021-4-18"><a href="#2021-4-18" class="headerlink" title="2021.4.18"></a>2021.4.18</h3><ul>
+<li>图，dfs：PAT-1034 Head of a Gang</li>
+<li>图，bfs：PAT-1076 Forwards on Weibo</li>
+<li>EDU CF # 107<ul>
+<li>a：贪心</li>
+</ul>
+</li>
+<li>图，Dijkstra：PAT-1003 Emergency</li>
+</ul>
+<h3 id="2021-4-11"><a href="#2021-4-11" class="headerlink" title="2021.4.11"></a>2021.4.11</h3><ul>
+<li><p>贪心：POJ-1700 Crossing River</p>
+</li>
+<li><p>水题：CCF-202012-1 期末预测之安全指数</p>
+</li>
+<li><p>排序：CCF-202012-2 期末预测之最佳阈值</p>
+</li>
+<li><p>大模拟：CCF-202012-3 带配额的文件系统</p>
+</li>
+<li><p>二叉树，bfs：PAT-A1020 Tree Traversals</p>
+</li>
+<li><p>树，dfs：PAT-A1053 Path of Equal Weight</p>
+</li>
+<li><p>二叉搜索树：PAT-1043 Is It a Binary Search Tree</p>
+</li>
+</ul>
+<h3 id="2021-4-4"><a href="#2021-4-4" class="headerlink" title="2021.4.4"></a>2021.4.4</h3><ul>
+<li><p>模拟：leetcode-190 颠倒二进制位</p>
+</li>
+<li><p>vjudge: 树和二叉树</p>
+<ul>
+<li>树和二叉树：uva-548 Tree</li>
+<li>树，递归：uva-839 Not so Mobile</li>
+<li>树：uva-699 The Falling Leaves</li>
+<li>树，dfs：uva-297 Quadtrees</li>
+</ul>
+</li>
+<li><p>vjudge: 并查集</p>
+<ul>
+<li>uva-1665 Islands</li>
+</ul>
+</li>
+</ul>
+<h3 id="2021-3-28"><a href="#2021-3-28" class="headerlink" title="2021.3.28"></a>2021.3.28</h3><ul>
+<li><p>分治：POJ-1723 SOLDIERS</p>
+</li>
+<li><p>动态规划：luogu-2285 打鼹鼠</p>
+</li>
+<li><p>dfs: leetcode-341 扁平化嵌套列表迭代器</p>
+</li>
+<li><p>单调栈：leetcode-456 132模式</p>
+</li>
+<li><p>优先队列，贪心：leetcode-1353 最多可以参加的会议数目</p>
+</li>
+<li><p>线段树：CCF认证-202012-5 星际旅行</p>
+</li>
+<li><p>链表：leetcode-82 删除排序链表中的重复元素Ⅱ</p>
+</li>
+<li><p>vjudge: 背包九讲</p>
+<ul>
+<li>01背包：hdu-2602 Bone Collector</li>
+<li>01背包：hdu-2995 Robberies</li>
+<li>01背包：Codeforces-366C Dima and Salad</li>
+<li>完全背包：hdu-1114 Piggy-Bank</li>
+</ul>
+</li>
+<li><p>链表：leetcode-83 删除排序链表中的重复元素</p>
+</li>
+<li><p>二叉树：uva-679 Drapping Balls</p>
+</li>
+<li><p>二叉树，链表：leetcode-173 二叉搜索树迭代器</p>
+</li>
+</ul>
+<h3 id="2021-3-21"><a href="#2021-3-21" class="headerlink" title="2021.3.21"></a>2021.3.21</h3><ul>
+<li><p>树状数组：leetcode-1649 通过指令创建有序数组</p>
+</li>
+<li><p>树状数组：UVALive-4329 Ping pong</p>
+</li>
+<li><p>模拟：leetcode-59 螺旋矩阵Ⅱ</p>
+</li>
+<li><p>动态规划：WHUOJ-2768 方格取数</p>
+</li>
+<li><p>dfs: WHUOJ-2657 岛屿面积有多大</p>
+</li>
+<li><p>dfs: leetcode-695 岛屿的最大面积</p>
+</li>
+<li><p>链表：leetcode-92 反转链表Ⅱ</p>
+</li>
+<li><p>排序：leetcode-56 合并区间</p>
+</li>
+</ul>
 ]]></content>
   </entry>
   <entry>
