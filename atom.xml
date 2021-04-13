@@ -6,7 +6,7 @@
   <link href="https://blog.maples31.com/blog/atom.xml" rel="self"/>
   
   <link href="https://blog.maples31.com/blog/"/>
-  <updated>2021-04-13T14:30:45.502Z</updated>
+  <updated>2021-04-13T15:21:47.946Z</updated>
   <id>https://blog.maples31.com/blog/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Edu CF 107 (Div.2)</title>
+    <link href="https://blog.maples31.com/blog/2021/04/13/Edu-CF-107-Div-2/"/>
+    <id>https://blog.maples31.com/blog/2021/04/13/Edu-CF-107-Div-2/</id>
+    <published>2021-04-13T15:04:31.000Z</published>
+    <updated>2021-04-13T15:21:47.946Z</updated>
+    
+    
+    <summary type="html">Educational Codeforces Round 107, div.2</summary>
+    
+    
+    
+    <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+    <category term="大模拟" scheme="https://blog.maples31.com/blog/tags/%E5%A4%A7%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="贪心" scheme="https://blog.maples31.com/blog/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+    <category term="构造算法" scheme="https://blog.maples31.com/blog/tags/%E6%9E%84%E9%80%A0%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>算法：Dijkstra算法</title>
@@ -395,23 +418,6 @@
     
     
     <summary type="html">Codeforces Round 618, div.2</summary>
-    
-    
-    
-    <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces 620 (Div.2)</title>
-    <link href="https://blog.maples31.com/blog/2021/03/13/CF%20620%20(Div.2)/"/>
-    <id>https://blog.maples31.com/blog/2021/03/13/CF%20620%20(Div.2)/</id>
-    <published>2021-03-13T11:30:36.000Z</published>
-    <updated>2021-03-14T15:40:06.819Z</updated>
-    
-    
-    <summary type="html">Codeforces Round 620, div.2</summary>
     
     
     
