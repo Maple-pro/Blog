@@ -1534,7 +1534,7 @@
     <title>算法：SPFA算法</title>
     <url>/blog/2021/04/14/%E7%AE%97%E6%B3%95%EF%BC%9ASPFA%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>SPFA (Shortest Path Faster Algorithm)</p>
-<p>期望时间复杂度为 <code>O(kE)</code>，其中 E 是图的边数，k 是一个常数，一般 k 不超过 2.</p>
+<p>期望时间复杂度为 $O(kE)$，其中 E 是图的边数，k 是一个常数，一般 k 不超过 2.</p>
 <p>如果图中有从源点可达的负环，传统SPFA的时间复杂度就会退化为 $O(VE)$.</p>
 <p>SPFA算法是从Bellman-Ford算法优化而来。</p>
 <blockquote>
