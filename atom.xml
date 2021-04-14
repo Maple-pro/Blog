@@ -6,7 +6,7 @@
   <link href="https://blog.maples31.com/blog/atom.xml" rel="self"/>
   
   <link href="https://blog.maples31.com/blog/"/>
-  <updated>2021-04-13T15:24:50.351Z</updated>
+  <updated>2021-04-14T11:16:45.126Z</updated>
   <id>https://blog.maples31.com/blog/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法：SPFA算法</title>
+    <link href="https://blog.maples31.com/blog/2021/04/14/%E7%AE%97%E6%B3%95%EF%BC%9ASPFA%E7%AE%97%E6%B3%95/"/>
+    <id>https://blog.maples31.com/blog/2021/04/14/%E7%AE%97%E6%B3%95%EF%BC%9ASPFA%E7%AE%97%E6%B3%95/</id>
+    <published>2021-04-14T11:06:09.000Z</published>
+    <updated>2021-04-14T11:16:45.126Z</updated>
+    
+    
+    <summary type="html">SPFA的板子</summary>
+    
+    
+    
+    <category term="算法" scheme="https://blog.maples31.com/blog/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="图" scheme="https://blog.maples31.com/blog/tags/%E5%9B%BE/"/>
+    
+    <category term="最短路" scheme="https://blog.maples31.com/blog/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>Educational Codeforces 107 (Div.2)</title>
@@ -44,7 +65,7 @@
     <link href="https://blog.maples31.com/blog/2021/04/13/%E7%AE%97%E6%B3%95%EF%BC%9ADijkstra%E7%AE%97%E6%B3%95/"/>
     <id>https://blog.maples31.com/blog/2021/04/13/%E7%AE%97%E6%B3%95%EF%BC%9ADijkstra%E7%AE%97%E6%B3%95/</id>
     <published>2021-04-13T02:53:32.000Z</published>
-    <updated>2021-04-13T15:25:04.431Z</updated>
+    <updated>2021-04-14T11:19:45.047Z</updated>
     
     
     <summary type="html">Dijkstra + DFS的板子</summary>
@@ -406,23 +427,6 @@
     
     
     <category term="JavaEE" scheme="https://blog.maples31.com/blog/tags/JavaEE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces 618 (Div.2)</title>
-    <link href="https://blog.maples31.com/blog/2021/03/13/CF%20618%20(Div.2)/"/>
-    <id>https://blog.maples31.com/blog/2021/03/13/CF%20618%20(Div.2)/</id>
-    <published>2021-03-13T11:40:36.000Z</published>
-    <updated>2021-03-17T05:05:16.254Z</updated>
-    
-    
-    <summary type="html">Codeforces Round 618, div.2</summary>
-    
-    
-    
-    <category term="题解" scheme="https://blog.maples31.com/blog/categories/%E9%A2%98%E8%A7%A3/"/>
-    
     
   </entry>
   

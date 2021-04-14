@@ -1615,6 +1615,8 @@
     <url>/blog/2021/04/13/%E7%AE%97%E6%B3%95%EF%BC%9ADijkstra%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>当涉及到比较复杂的第二标尺第三标尺时，可以采用Dijkstra + DFS的模板。</p>
 <p>即，现在Dijkstra算法中记录下所有最短路径（只考虑距离），然后从这些最短路径中选出一条第二标尺最优的路径（通过DFS）。</p>
+<p>复杂度：$O(V^2 + E)$</p>
+<p>若采用堆优化来降低复杂度，即使用STL中的 <code>priority_que</code>。此时时间复杂度为 $O(VlogV + E)$ </p>
 <h1 id="1-模板"><a href="#1-模板" class="headerlink" title="1. 模板"></a>1. 模板</h1><ol>
 <li>使用Dijkstra算法记录所有最短路径</li>
 </ol>
@@ -1669,6 +1671,33 @@
         <tag>大模拟</tag>
         <tag>贪心</tag>
         <tag>构造算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>算法：SPFA算法</title>
+    <url>/blog/2021/04/14/%E7%AE%97%E6%B3%95%EF%BC%9ASPFA%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>SPFA (Shortest Path Faster Algorithm)</p>
+<p>期望时间复杂度为 <code>O(kE)</code>，其中 E 是图的边数，k 是一个常数，一般 k 不超过 2.</p>
+<p>如果图中有从源点可达的负环，传统SPFA的时间复杂度就会退化为 $O(VE)$.</p>
+<p>SPFA算法是从Bellman-Ford算法优化而来。</p>
+<blockquote>
+<p>优化点：只有当某个顶点 u 的 $d[u]$ 值改变时，从它出发的边的临界点 v 的 $d[v]$ 值才有可能被改变</p>
+</blockquote>
+<p>伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">源点s入队;</span><br><span class="line"><span class="keyword">while</span> (队列非空) &#123;</span><br><span class="line">    取出队首元素u;</span><br><span class="line">    <span class="keyword">for</span> (u的所有邻接边 u-&gt;v) &#123;</span><br><span class="line">        <span class="keyword">if</span> (d[u] + dis &gt; d[v]) &#123;</span><br><span class="line">            d[v] = d[u] + dis;</span><br><span class="line">            <span class="keyword">if</span> (v当前不在队列) &#123;</span><br><span class="line">                v入队;</span><br><span class="line">                <span class="keyword">if</span> (v入队次数大于n<span class="number">-1</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 说明有可达负环</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 无可达负环</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码模板：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> v; <span class="comment">// 邻接边的目标顶点 </span></span><br><span class="line">	<span class="keyword">int</span> dis; <span class="comment">// 邻接边的边权</span></span><br><span class="line">	Node(<span class="keyword">int</span> _v, <span class="keyword">int</span> _dis): v(_v), dis(_dis) &#123;&#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[MAXV]; <span class="comment">// 邻接表 </span></span><br><span class="line"><span class="keyword">int</span> n, d[MAXV], num[MAXV]; <span class="comment">// num数组记录顶点的入队次数</span></span><br><span class="line"><span class="keyword">bool</span> inq[MAXV]; <span class="comment">// 顶点是否在队列中 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(inq, <span class="literal">false</span>, <span class="keyword">sizeof</span>(inq));</span><br><span class="line">	<span class="built_in">memset</span>(num, <span class="number">0</span>, <span class="keyword">sizeof</span>(num));</span><br><span class="line">	<span class="built_in">memset</span>(d, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">	Q.push(s);</span><br><span class="line">	inq[s] = <span class="literal">true</span>;</span><br><span class="line">	num[s]++;</span><br><span class="line">	d[s] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (!Q.empty()) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = Q.front();</span><br><span class="line">		Q.pop();</span><br><span class="line">		inq[u] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Adj[u].size(); i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> v = Adj[u][i].v;</span><br><span class="line">			<span class="keyword">int</span> dis = Adj[u][i].dis;</span><br><span class="line">			<span class="comment">// 松弛操作</span></span><br><span class="line">			<span class="keyword">if</span> (d[u] + dis &lt; d[v]) &#123;</span><br><span class="line">				d[v] = d[u] + dis;</span><br><span class="line">				<span class="keyword">if</span> (!inq[v]) &#123;</span><br><span class="line">					Q.push(v);</span><br><span class="line">					inq[v] = <span class="literal">true</span>;</span><br><span class="line">					num[v]++;</span><br><span class="line">					<span class="keyword">if</span> (num[v] &gt;= n) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 有可达负环 </span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 无可达负环 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>图</tag>
+        <tag>最短路</tag>
       </tags>
   </entry>
   <entry>
