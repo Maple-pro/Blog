@@ -162,7 +162,7 @@
     <link href="https://blog.maples31.com/blog/2021/04/08/CS144-1-Internet-and-IP/"/>
     <id>https://blog.maples31.com/blog/2021/04/08/CS144-1-Internet-and-IP/</id>
     <published>2021-04-08T07:42:50.000Z</published>
-    <updated>2021-04-09T08:29:26.518Z</updated>
+    <updated>2021-06-03T15:22:23.064Z</updated>
     
     
     <summary type="html">Stanford课程CS144，介绍Internet和IP</summary>
@@ -307,25 +307,6 @@
   </entry>
   
   <entry>
-    <title>AutoCAD .NET: Dynamic Block</title>
-    <link href="https://blog.maples31.com/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/"/>
-    <id>https://blog.maples31.com/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/</id>
-    <published>2021-03-20T05:57:09.000Z</published>
-    <updated>2021-04-07T07:12:18.889Z</updated>
-    
-    
-    <summary type="html">AutoCAD二次开发：如何使用.NET来生成和获取AutoCAD中的动态块</summary>
-    
-    
-    
-    <category term="AutoCAD二次开发" scheme="https://blog.maples31.com/blog/categories/AutoCAD%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="动态块" scheme="https://blog.maples31.com/blog/tags/%E5%8A%A8%E6%80%81%E5%9D%97/"/>
-    
-  </entry>
-  
-  <entry>
     <title>云计算：3. 容器</title>
     <link href="https://blog.maples31.com/blog/2021/03/17/CloudComputing-3/"/>
     <id>https://blog.maples31.com/blog/2021/03/17/CloudComputing-3/</id>
@@ -418,6 +399,25 @@
     
     
     <summary type="html">介绍云计算和大数据</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="云计算" scheme="https://blog.maples31.com/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>云计算：2. Google云计算</title>
+    <link href="https://blog.maples31.com/blog/2021/03/15/CloudComputing-2/"/>
+    <id>https://blog.maples31.com/blog/2021/03/15/CloudComputing-2/</id>
+    <published>2021-03-15T08:44:51.000Z</published>
+    <updated>2021-03-15T16:11:49.735Z</updated>
+    
+    
+    <summary type="html">介绍Google云计算的Google三宝：GFS, MapReduce, BigTable</summary>
     
     
     

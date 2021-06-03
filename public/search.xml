@@ -20,27 +20,6 @@
       </tags>
   </entry>
   <entry>
-    <title>AutoCAD .NET: Dynamic Block</title>
-    <url>/blog/2021/03/20/AutoCAD-NET-Dynamic-Block/</url>
-    <content><![CDATA[<h1 id="Dynamic-AutoCAD-Block"><a href="#Dynamic-AutoCAD-Block" class="headerlink" title="Dynamic AutoCAD Block"></a>Dynamic AutoCAD Block</h1><p>如何使用.NET生成和获取AutoCAD中的动态块</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Autodesk.AutoCAD.ApplicationServices;</span><br><span class="line"><span class="keyword">using</span> Autodesk.AutoCAD.DatabaseServices;</span><br><span class="line"><span class="keyword">using</span> Autodesk.AutoCAD.EditorInput;</span><br><span class="line"><span class="keyword">using</span> Autodesk.AutoCAD.Geometry;</span><br><span class="line"><span class="keyword">using</span> Autodesk.AutoCAD.Runtime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">DynamicBlocks</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Commands</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">CommandMethod(<span class="meta-string">&quot;DBP&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DymamicBlockProps</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li>[1] <a href="https://www.keanw.com/2009/03/accessing-the-properties-of-a-dynamic-autocad-block-using-net.html">Accessing the properties of a dynamic AutoCAD block using .NET</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>AutoCAD二次开发</category>
-      </categories>
-      <tags>
-        <tag>动态块</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Codeforces 620 (Div.2)</title>
     <url>/blog/2021/03/13/CF%20620%20(Div.2)/</url>
     <content><![CDATA[<p>今天被自己写的代码恶心到了……挂出来引以为戒</p>
@@ -232,14 +211,39 @@
 </ul>
 </li>
 </ul>
-<h1 id="3-The-IP-Service"><a href="#3-The-IP-Service" class="headerlink" title="3. The IP Service"></a>3. The IP Service</h1><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162154225.png" alt="image-20210409162154225" style="zoom:80%;" />
+<h1 id="3-The-IP-Service"><a href="#3-The-IP-Service" class="headerlink" title="3. The IP Service"></a>3. The IP Service</h1><h2 id="3-1-The-Internet-Protocol"><a href="#3-1-The-Internet-Protocol" class="headerlink" title="3.1 The Internet Protocol"></a>3.1 The Internet Protocol</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162154225.png" alt="image-20210409162154225" style="zoom:80%;" />
 
 <p><strong>IP datagrams</strong> consist of a header and some data.</p>
 <p>When the transport layer has data to send, it hands a <strong>Transport segment</strong> to the Network layer below. The network layer puts the transport segments inside a new <strong>IP datagram</strong>. IP’s job is to deliver the datagram to the other end.</p>
 <p>IP send the datagram to the Link Layer that puts it inside a <strong>Link Frame</strong>, such as an Ethernet packet and ships it off to the first router.</p>
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162645925.png" alt="image-20210409162645925" style="zoom:80%;" />
+<ul>
+<li>Application layer: stream of data</li>
+<li>Transport layer: segments of data</li>
+<li>Network layer: packets of data</li>
+</ul>
+<h2 id="3-2-The-IP-Service-Model"><a href="#3-2-The-IP-Service-Model" class="headerlink" title="3.2 The IP Service Model"></a>3.2 The IP Service Model</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162645925.png" alt="image-20210409162645925" style="zoom:80%;" />
 
 <p>The IP service sends <strong>Datagrams</strong> from end host to end host; it is <strong>unreliable</strong>, but makes a <strong>best-effort</strong> to deliver the datagrams. The network maintains <strong>no per-flow state</strong> associated with the datagrams.</p>
+<blockquote>
+<p>Datagram: The datagram is packet that is routed individually through the network based on the information in its header. —&gt; <strong>self-contained</strong></p>
+<p>IP DA — IP address of the destination</p>
+<p>IP SA — IP source address</p>
+</blockquote>
+<h2 id="3-3-Why-is-the-IP-service-so-simple"><a href="#3-3-Why-is-the-IP-service-so-simple" class="headerlink" title="3.3 Why is the IP service so simple?"></a>3.3 Why is the IP service so simple?</h2><ul>
+<li>Simple, dumb, minimal: Faster, more streamlined and lower cost to build and maintain</li>
+<li>The end-to-end principle: Where possible, implement features in the end host.</li>
+<li>Allow a variety of reliable (or unreliable) services to be built on top.</li>
+<li>Works over any link layer: IP makes very few assumptions about the link layer below.</li>
+</ul>
+<h2 id="3-4-The-Detail-features-of-the-IP-Service-Model"><a href="#3-4-The-Detail-features-of-the-IP-Service-Model" class="headerlink" title="3.4 The Detail/features of the IP Service Model"></a>3.4 The Detail/features of the IP Service Model</h2><ol>
+<li>Tries to prevent packets looping forever.</li>
+<li>Will fragment packets if they are too long.</li>
+<li>Uses a header checksum to reduce chances of delivering datagram to wrong destination.</li>
+<li>Allows for new versions of IP (IPv4 — 32 bit address; IPv6 — 125 bit address)</li>
+<li>Allows for new options to be added to header.</li>
+</ol>
+<h2 id="3-5-IPv4-Datagram"><a href="#3-5-IPv4-Datagram" class="headerlink" title="3.5 IPv4 Datagram"></a>3.5 IPv4 Datagram</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210603232035399.png" alt="image-20210603232035399" style="zoom:80%;" />
+
 ]]></content>
       <categories>
         <category>学习笔记</category>

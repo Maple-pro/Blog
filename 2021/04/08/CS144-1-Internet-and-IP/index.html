@@ -43,8 +43,9 @@
 <meta property="og:image" content="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409125603400.png">
 <meta property="og:image" content="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162154225.png">
 <meta property="og:image" content="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162645925.png">
+<meta property="og:image" content="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210603232035399.png">
 <meta property="article:published_time" content="2021-04-08T07:42:50.000Z">
-<meta property="article:modified_time" content="2021-04-09T08:29:26.518Z">
+<meta property="article:modified_time" content="2021-06-03T15:22:23.064Z">
 <meta property="article:author" content="Maples">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409114932469.png">
@@ -249,7 +250,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-09 16:29:26" itemprop="dateModified" datetime="2021-04-09T16:29:26+08:00">2021-04-09</time>
+                <time title="Modified: 2021-06-03 23:22:23" itemprop="dateModified" datetime="2021-06-03T23:22:23+08:00">2021-06-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,7 +271,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>7.3k</span>
+              <span>8.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -389,14 +390,39 @@
 </ul>
 </li>
 </ul>
-<h1 id="3-The-IP-Service"><a href="#3-The-IP-Service" class="headerlink" title="3. The IP Service"></a>3. The IP Service</h1><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162154225.png" alt="image-20210409162154225" style="zoom:80%;" />
+<h1 id="3-The-IP-Service"><a href="#3-The-IP-Service" class="headerlink" title="3. The IP Service"></a>3. The IP Service</h1><h2 id="3-1-The-Internet-Protocol"><a href="#3-1-The-Internet-Protocol" class="headerlink" title="3.1 The Internet Protocol"></a>3.1 The Internet Protocol</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162154225.png" alt="image-20210409162154225" style="zoom:80%;" />
 
 <p><strong>IP datagrams</strong> consist of a header and some data.</p>
 <p>When the transport layer has data to send, it hands a <strong>Transport segment</strong> to the Network layer below. The network layer puts the transport segments inside a new <strong>IP datagram</strong>. IP’s job is to deliver the datagram to the other end.</p>
 <p>IP send the datagram to the Link Layer that puts it inside a <strong>Link Frame</strong>, such as an Ethernet packet and ships it off to the first router.</p>
-<img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162645925.png" alt="image-20210409162645925" style="zoom:80%;" />
+<ul>
+<li>Application layer: stream of data</li>
+<li>Transport layer: segments of data</li>
+<li>Network layer: packets of data</li>
+</ul>
+<h2 id="3-2-The-IP-Service-Model"><a href="#3-2-The-IP-Service-Model" class="headerlink" title="3.2 The IP Service Model"></a>3.2 The IP Service Model</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210409162645925.png" alt="image-20210409162645925" style="zoom:80%;" />
 
 <p>The IP service sends <strong>Datagrams</strong> from end host to end host; it is <strong>unreliable</strong>, but makes a <strong>best-effort</strong> to deliver the datagrams. The network maintains <strong>no per-flow state</strong> associated with the datagrams.</p>
+<blockquote>
+<p>Datagram: The datagram is packet that is routed individually through the network based on the information in its header. —&gt; <strong>self-contained</strong></p>
+<p>IP DA — IP address of the destination</p>
+<p>IP SA — IP source address</p>
+</blockquote>
+<h2 id="3-3-Why-is-the-IP-service-so-simple"><a href="#3-3-Why-is-the-IP-service-so-simple" class="headerlink" title="3.3 Why is the IP service so simple?"></a>3.3 Why is the IP service so simple?</h2><ul>
+<li>Simple, dumb, minimal: Faster, more streamlined and lower cost to build and maintain</li>
+<li>The end-to-end principle: Where possible, implement features in the end host.</li>
+<li>Allow a variety of reliable (or unreliable) services to be built on top.</li>
+<li>Works over any link layer: IP makes very few assumptions about the link layer below.</li>
+</ul>
+<h2 id="3-4-The-Detail-features-of-the-IP-Service-Model"><a href="#3-4-The-Detail-features-of-the-IP-Service-Model" class="headerlink" title="3.4 The Detail/features of the IP Service Model"></a>3.4 The Detail/features of the IP Service Model</h2><ol>
+<li>Tries to prevent packets looping forever.</li>
+<li>Will fragment packets if they are too long.</li>
+<li>Uses a header checksum to reduce chances of delivering datagram to wrong destination.</li>
+<li>Allows for new versions of IP (IPv4 — 32 bit address; IPv6 — 125 bit address)</li>
+<li>Allows for new options to be added to header.</li>
+</ol>
+<h2 id="3-5-IPv4-Datagram"><a href="#3-5-IPv4-Datagram" class="headerlink" title="3.5 IPv4 Datagram"></a>3.5 IPv4 Datagram</h2><img src="https://maples31-blog.oss-cn-beijing.aliyuncs.com/img/image-20210603232035399.png" alt="image-20210603232035399" style="zoom:80%;" />
+
 
     </div>
 
@@ -484,7 +510,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Network-Applications"><span class="nav-text">1. Network Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-World-Wide-Web-HTTP"><span class="nav-text">1.1 World Wide Web (HTTP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-BitTorrent"><span class="nav-text">1.2 BitTorrent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Skype"><span class="nav-text">1.3 Skype</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-The-4-Layer-Internet-Model"><span class="nav-text">2. The 4 Layer Internet Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Link-Layer"><span class="nav-text">2.1 Link Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Network-Layer"><span class="nav-text">2.2 Network Layer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Process"><span class="nav-text">Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Separation"><span class="nav-text">Separation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Special"><span class="nav-text">Special</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Transport-Layer"><span class="nav-text">2.3 Transport Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Application-Layer"><span class="nav-text">2.4 Application Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-ALL"><span class="nav-text">2.5 ALL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-Other"><span class="nav-text">2.6 Other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP"><span class="nav-text">IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI-Model"><span class="nav-text">OSI Model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-The-IP-Service"><span class="nav-text">3. The IP Service</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Network-Applications"><span class="nav-text">1. Network Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-World-Wide-Web-HTTP"><span class="nav-text">1.1 World Wide Web (HTTP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-BitTorrent"><span class="nav-text">1.2 BitTorrent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Skype"><span class="nav-text">1.3 Skype</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-The-4-Layer-Internet-Model"><span class="nav-text">2. The 4 Layer Internet Model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Link-Layer"><span class="nav-text">2.1 Link Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Network-Layer"><span class="nav-text">2.2 Network Layer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Process"><span class="nav-text">Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Separation"><span class="nav-text">Separation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Special"><span class="nav-text">Special</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Transport-Layer"><span class="nav-text">2.3 Transport Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Application-Layer"><span class="nav-text">2.4 Application Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-ALL"><span class="nav-text">2.5 ALL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-Other"><span class="nav-text">2.6 Other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP"><span class="nav-text">IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI-Model"><span class="nav-text">OSI Model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-The-IP-Service"><span class="nav-text">3. The IP Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-The-Internet-Protocol"><span class="nav-text">3.1 The Internet Protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-The-IP-Service-Model"><span class="nav-text">3.2 The IP Service Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Why-is-the-IP-service-so-simple"><span class="nav-text">3.3 Why is the IP service so simple?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-The-Detail-features-of-the-IP-Service-Model"><span class="nav-text">3.4 The Detail&#x2F;features of the IP Service Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-IPv4-Datagram"><span class="nav-text">3.5 IPv4 Datagram</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -500,20 +526,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
